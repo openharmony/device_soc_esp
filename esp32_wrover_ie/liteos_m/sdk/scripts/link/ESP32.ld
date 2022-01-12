@@ -63,6 +63,7 @@ SECTIONS
     . = 0x3C0;
     KEEP(*(.DoubleExceptionHandler.text));
     . = 0x400;
+    *(.userVector)
     *(.*_vector.literal)
 
     . = ALIGN (16);
@@ -78,6 +79,7 @@ SECTIONS
 
     _iram_text_start = ABSOLUTE(.);
     *(.iram1 .iram1.*)
+    *(.iram*)
     *librtc.a:(.literal .text .literal.* .text.*)
     *libarch.a:esp32_spiflash.*(.literal .text .literal.* .text.*)
     *(.wifirxiram .wifirxiram.*)

@@ -18,8 +18,11 @@ module_name = "sdk"
 kernel_module(module_name) {
   sources = [
     "rtos/liteos/liteos_m/main.c",
-    "rtos/liteos/liteos_m/test/task_demo.c",
   ]
+  if (!defined(LOSCFG_TEST)) {
+    # kernel's testsuites not enabled, use ower's
+    sources += [ "rtos/liteos/liteos_m/test/task_demo.c" ]
+  }
   include_dirs = [
     "rtos/liteos/liteos_m",
     "rtos/liteos/liteos_m/test",

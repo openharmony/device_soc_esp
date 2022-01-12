@@ -134,19 +134,19 @@ device/soc/espressif
       $ make menuconfig
       ```
 
-   2. 执行hb clean && hb build命令构建产生 `OHOS_Image` 的可执行文件。
+   3. 执行hb clean && hb build命令构建产生 `OHOS_Image` 的可执行文件。
 
       ```shell
       $ hb clean && hb build
       ```
 
-   3. 在构建完成之后，对应的可执行文件在主目录下：
+   4. 在构建完成之后，对应的可执行文件在主目录下：
 
       ```
       out/esp32_devkitc_v4/esp32_wrover_ie_demo/
       ```
 
-   4. 在主目录下执行以下命令生成bin文件：
+   5. 在主目录下执行以下命令生成bin文件：
 
       ```shell
       esptool.py --chip esp32 elf2image --flash_mode dio --flash_freq 80m     \
