@@ -40,6 +40,14 @@ extern "C" {
 #endif /* __cplusplus */
 #endif /* __cplusplus */
 
+#ifndef __NEED_uintptr_t
+#define __NEED_uintptr_t
+#endif
+
+#ifndef __NEED_intptr_t
+#define __NEED_intptr_t
+#endif
+
 /*=============================================================================
                                         System clock module configuration
 =============================================================================*/
@@ -106,8 +114,6 @@ extern UINTPTR __heap_start;
 /*=============================================================================
                                         TestSuite configuration
 =============================================================================*/
-#define LOSCFG_TEST                                         0
-
 #define LOSCFG_BACKTRACE_TYPE                               4
 #define LOSCFG_KERNEL_PRINTF                                1
 #define LFS_NO_ASSERT                                       1
