@@ -29,6 +29,16 @@ device/soc/espressif
 
       注：若跳过安装esp-idf可以按照下列方式安装工具链：
 
+      提示：用户也可以直接使用下列指令来使用默认环境中配置好的编译器，跳过该步骤。
+
+      若要使用默认环境请先执行 '3.获取源码' ，然后在根目录下执行下列指令安装默认编译器。
+
+         ```shell
+         sh build/prebuilts_download.sh
+         ```
+
+      可选的编译器安装流程：
+
       1.下载官方release的SDK包：https://www.espressif.com/zh-hans/support/download/sdks-demos?keys=&field_type_tid%5B%5D=13
 
       2.将下载好的SDK包放入linux系统，进入目录执行如下指令：
@@ -40,13 +50,33 @@ device/soc/espressif
          . ./export.sh
          ```
 
+      3. 删除默认的编译器路径：
+
+         修改esp32\liteos_m\config.gni：
+
+         ```c
+         board_toolchain_path = "$ohos_root_path/prebuilts/gcc/linux-x86/esp/esp-2019r2-8.2.0/xtensa-esp32-elf/bin/"
+         ```
+
+         改为
+
+         ```c
+         board_toolchain_path = ""
+         ```
+
       注：本教程使用的工具链版本为gcc version 8.2.0 (crosstool-NG esp-2019r2)或gcc version 8.4.0 (crosstool-NG esp-2021r1)
 
    2. esptool安装
 
-      ```shell
-      python -m pip install esptool
-      ```
+      a) 步骤1中export.sh脚本会设置esptool工具路径,需要确保esptool工具版本为3.1及以上。
+         ```shell
+         esptool.py version
+         ```
+      b) 如果esp-idf自带esptool工具版本过低，需删除当前esptool路径对应的环境变量，并执行以下命令。（python版本建议为3.8及以上）
+         ```shell
+         python -m pip install esptool
+         ```
+
    3. hb工具安装
 
       a) 运行如下命令安装hb
@@ -94,20 +124,20 @@ device/soc/espressif
       a) 生成bootloader.bin
 
          ```shell
-         $ cd esp-idf
-         $ ./install.sh
-         $ ./export.sh
-         $ cd examples/get-started/hello_world
-         $ make menuconfig
+         cd esp-idf
+         ./install.sh
+         ./export.sh
+         cd examples/get-started/hello_world
+         make menuconfig
          (关掉 Partition Table -> [*] Generate an MD5 checksum for the partition table 选项)
-         $ make bootloader
+         make bootloader
          ```
 
       b) 生成分区表
 
          使用`gen_esp32part.py`脚本将用户自定义csv文件转换为对应bin文件，如：
          ```shell
-         $ gen_esp32part.py partitions_user.csv partitions_user.bin --disable-md5sum
+         gen_esp32part.py partitions_user.csv partitions_user.bin --disable-md5sum
          ```
 
          esp32 csv文件可参考以下配置：
@@ -129,9 +159,9 @@ device/soc/espressif
    下载好源码后通过下列指令下载开发板代码：
 
    ```shell
-      $ repo init -u https://gitee.com/openharmony-sig/manifest.git -m devboard_espressif.xml --no-repo-verify
-      $ repo sync -c
-      $ repo forall -c 'git lfs pull'
+      repo init -u https://gitee.com/openharmony-sig/manifest.git -m devboard_espressif.xml --no-repo-verify
+      repo sync -c
+      repo forall -c 'git lfs pull'
    ```
 
 ## 3.源码构建
@@ -139,20 +169,20 @@ device/soc/espressif
    1. 执行hb set命令并选择项目`esp32_wrover_ie_demo`。
 
       ```shell
-      $ hb set
+      hb set
       ```
 
    2. 进入kernel/liteos_m中执行make manuconfig选择Platform -> Chip -> qemu_xtensa_esp32,配置当前开发板。
 
       ```shell
-      $ cd kernel/liteos_m/
-      $ make menuconfig
+      cd kernel/liteos_m/
+      make menuconfig
       ```
 
    3. 执行hb clean && hb build命令构建产生 `OHOS_Image` 的可执行文件。
 
       ```shell
-      $ hb clean && hb build
+      hb clean && hb build
       ```
 
    4. 在构建完成之后，对应的可执行文件在主目录下：
@@ -187,3 +217,4 @@ device/soc/espressif
 注1：如果没有手动生成bootloader.bin和partition-table.bin，可以直接使用device\soc\espressif\esp32_wrover_ie\pack_tools下的bootloader.bin和partition-table.bin。
 
 注2：烧录用的bin文件需要按照3-4中的方法使用esptool.py工具生成。
+
