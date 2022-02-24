@@ -31,10 +31,24 @@ device/soc/espressif
 
       提示：用户也可以直接使用下列指令来使用默认环境中配置好的编译器，跳过该步骤。
 
-      若要使用默认环境请先执行 '3.获取源码' ，然后在根目录下执行下列指令安装默认编译器。
+      若要使用默认环境请先执行 '## 2.获取源码' ，然后在根目录下执行下列指令安装默认编译器。
 
          ```shell
          sh build/prebuilts_download.sh
+         ```
+
+      增加默认的编译器路径：
+
+      修改esp32\liteos_m\config.gni：
+
+         ```c
+         board_toolchain_path = ""
+         ```
+
+      改为
+
+         ```c
+         board_toolchain_path = "$ohos_root_path/prebuilts/gcc/linux-x86/esp/esp-2019r2-8.2.0/xtensa-esp32-elf/bin/"
          ```
 
       可选的编译器安装流程：
@@ -48,20 +62,6 @@ device/soc/espressif
          cd esp-idf-v4.3.1/
          ./install.sh
          . ./export.sh
-         ```
-
-      3. 删除默认的编译器路径：
-
-         修改esp32\liteos_m\config.gni：
-
-         ```c
-         board_toolchain_path = "$ohos_root_path/prebuilts/gcc/linux-x86/esp/esp-2019r2-8.2.0/xtensa-esp32-elf/bin/"
-         ```
-
-         改为
-
-         ```c
-         board_toolchain_path = ""
          ```
 
       注：本教程使用的工具链版本为gcc version 8.2.0 (crosstool-NG esp-2019r2)或gcc version 8.4.0 (crosstool-NG esp-2021r1)
@@ -119,7 +119,7 @@ device/soc/espressif
          -h, --help            show this help message and exit
          ```
 
-   3. 编译镜像
+   4. 编译镜像（可跳过）
 
       a) 生成bootloader.bin
 
@@ -172,7 +172,7 @@ device/soc/espressif
       hb set
       ```
 
-   2. 进入kernel/liteos_m中执行make manuconfig选择Platform -> Chip -> qemu_xtensa_esp32,配置当前开发板。
+   2. 进入kernel/liteos_m中执行make menuconfig选择Platform -> Chip -> qemu_xtensa_esp32 和 Platform -> SoC Series Selection -> Espressif Series,配置当前开发板。
 
       ```shell
       cd kernel/liteos_m/
