@@ -25,7 +25,7 @@ device/soc/espressif
 
       使用安装指导请参考：(https://docs.espressif.com/projects/esp-idf/zh_CN/release-v4.1/get-started/index.html)
 
-      注：esp-idf安装可以跳过，当前已将生成好的bootloader.bin和partition-table.bin放入device\soc\espressif\esp32_wrover_ie\pack_tools文件夹中。
+      注：esp-idf安装可以跳过，当前已将生成好的bootloader.bin和partition-table.bin放入device/soc/espressif/esp32_wrover_ie/pack_tools文件夹中。
 
       注：若跳过安装esp-idf可以按照下列方式安装工具链：
 
@@ -39,7 +39,7 @@ device/soc/espressif
 
       增加默认的编译器路径：
 
-      修改esp32\liteos_m\config.gni：
+      修改device/board/espressif/esp32_devkitc_v4/liteos_m/config.gni：
 
          ```c
          board_toolchain_path = ""
@@ -148,7 +148,7 @@ device/soc/espressif
          factory,app,factory,0x10000,1M,
          ```
 
-   注：编译镜像可以跳过，当前已将生成好的bootloader.bin和partition-table.bin放入device\soc\espressif\esp32_wrover_ie\pack_tools文件夹中。
+   注：编译镜像可以跳过，当前已将生成好的bootloader.bin和partition-table.bin放入device/soc/espressif/esp32_wrover_ie/pack_tools文件夹中。
 
 ## 2.获取源码
 
@@ -214,7 +214,7 @@ device/soc/espressif
 
       c) 点击START开始下载。
 
-注1：如果没有手动生成bootloader.bin和partition-table.bin，可以直接使用device\soc\espressif\esp32_wrover_ie\pack_tools下的bootloader.bin和partition-table.bin。
+注1：如果没有手动生成bootloader.bin和partition-table.bin，可以直接使用device/soc/espressif/esp32_wrover_ie/pack_tools下的bootloader.bin和partition-table.bin。
 
 注2：烧录用的bin文件需要按照3-4中的方法使用esptool.py工具生成。
 
