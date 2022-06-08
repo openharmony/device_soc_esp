@@ -18,5 +18,9 @@ if SOC_COMPANY_ESPRESSIF
 config SOC_COMPANY
     default "espressif"
 
+choice
+    prompt "ESPXX series SoC"
 rsource "*/Kconfig.liteos_m.soc"
+endchoice
+
 endif # SOC_COMPANY_ESPRESSIF
