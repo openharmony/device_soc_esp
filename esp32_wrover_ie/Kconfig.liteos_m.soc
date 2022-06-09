@@ -11,11 +11,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-choice
-    prompt "Esp32_wrover_ie series SoC"
-    depends on SOC_SERIES_ESP32
-
 config SOC_ESP32
-    bool "SoC ESP32"
-
-endchoice
+    bool "SoC ESP32-WROVER-IE"
