@@ -262,9 +262,9 @@ void esp_log_writev(esp_log_level_t level, const char* tag, const char* format, 
 #define LOG_COLOR_BLUE    "34"
 #define LOG_COLOR_PURPLE  "35"
 #define LOG_COLOR_CYAN    "36"
-#define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
-#define LOG_BOLD(COLOR)   "\033[1;" COLOR "m"
-#define LOG_RESET_COLOR   "\033[0m"
+#define LOG_COLOR(COLOR)  ""
+#define LOG_BOLD(COLOR)   ""
+#define LOG_RESET_COLOR   ""
 #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
 #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
 #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
