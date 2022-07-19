@@ -88,6 +88,10 @@ template("StaticLibrary") {
       "//kernel/liteos_m/components/power",
       "//kernel/liteos_m",
       "$device_path/include",
+      "mbedtls/port/include",
+      # "mbedtls/mbedtls/include",
+      "//third_party/mbedtls/include",
+      "mbedtls/esp_crt_bundle/include",
     ] + invoker._includes
     output_prefix_override=false
     no_default_deps = true
@@ -130,7 +134,6 @@ StaticLibrary("esp_app_update") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
     "PROJECT_VER=\"1\"",
     "PROJECT_NAME=\"spp_client_demo\"",
@@ -174,9 +177,6 @@ StaticLibrary("esp_app_update") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -234,7 +234,6 @@ StaticLibrary("esp_bootloader_support") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -277,9 +276,6 @@ StaticLibrary("esp_bootloader_support") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -351,7 +347,6 @@ StaticLibrary("esp_bt") {
     "IDF_VER=\"v4.3.1-dirty\"",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
   _includes = [
@@ -469,9 +464,6 @@ StaticLibrary("esp_bt") {
     "lwip/lwip/src/include",
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "mdns/include",
     "mqtt/esp-mqtt/include",
     "newlib/platform_include",
@@ -769,7 +761,6 @@ StaticLibrary("esp_cxx") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -812,9 +803,6 @@ StaticLibrary("esp_cxx") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -873,7 +861,6 @@ StaticLibrary("esp_driver") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -916,9 +903,6 @@ StaticLibrary("esp_driver") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1005,7 +989,6 @@ StaticLibrary("esp_efuse") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1048,9 +1031,6 @@ StaticLibrary("esp_efuse") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1116,7 +1096,6 @@ StaticLibrary("esp_esp32") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1158,9 +1137,6 @@ StaticLibrary("esp_esp32") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1226,7 +1202,6 @@ StaticLibrary("esp_esp_adc_cal") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1269,9 +1244,6 @@ StaticLibrary("esp_esp_adc_cal") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1328,7 +1300,6 @@ StaticLibrary("esp_esp_common") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1370,9 +1341,6 @@ StaticLibrary("esp_esp_common") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1438,7 +1406,6 @@ StaticLibrary("esp_esp_event") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1481,9 +1448,6 @@ StaticLibrary("esp_esp_event") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1546,7 +1510,6 @@ StaticLibrary("esp_esp_hw_support") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1588,9 +1551,6 @@ StaticLibrary("esp_esp_hw_support") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1657,7 +1617,6 @@ StaticLibrary("esp_esp_netif") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1701,9 +1660,6 @@ StaticLibrary("esp_esp_netif") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1768,7 +1724,6 @@ StaticLibrary("esp_esp_pm") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1810,9 +1765,6 @@ StaticLibrary("esp_esp_pm") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1871,7 +1823,6 @@ StaticLibrary("esp_esp_ringbuf") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1913,9 +1864,6 @@ StaticLibrary("esp_esp_ringbuf") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -1976,7 +1924,6 @@ StaticLibrary("esp_esp_rom") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -2018,9 +1965,6 @@ StaticLibrary("esp_esp_rom") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2085,7 +2029,6 @@ StaticLibrary("esp_esp_system") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -2129,9 +2072,6 @@ StaticLibrary("esp_esp_system") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2205,7 +2145,6 @@ StaticLibrary("esp_esp_timer") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -2248,9 +2187,6 @@ StaticLibrary("esp_esp_timer") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2309,7 +2245,6 @@ StaticLibrary("esp_esp_wifi") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -2351,9 +2286,6 @@ StaticLibrary("esp_esp_wifi") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2420,7 +2352,6 @@ StaticLibrary("esp_hal") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -2462,9 +2393,6 @@ StaticLibrary("esp_hal") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2561,7 +2489,6 @@ StaticLibrary("esp_heap") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -2603,9 +2530,6 @@ StaticLibrary("esp_heap") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2668,7 +2592,6 @@ StaticLibrary("esp_log") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -2711,9 +2634,6 @@ StaticLibrary("esp_log") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2774,7 +2694,6 @@ StaticLibrary("esp_lwip") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
 #    "CONFIG_VFS_SUPPORT_IO=1",
   ]
@@ -2818,9 +2737,6 @@ StaticLibrary("esp_lwip") {
     "heap/include",
     "log/include",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -2962,7 +2878,6 @@ StaticLibrary("esp_oh_driver_hal") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3005,9 +2920,6 @@ StaticLibrary("esp_oh_driver_hal") {
     "lwip/lwip/src/include",
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -3077,9 +2989,6 @@ StaticLibrary("esp_mbedtls") {
   ]
 
   _includes = [
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "app_trace/include",
     "app_update/include",
     "bootloader_support/include",
@@ -3144,84 +3053,6 @@ StaticLibrary("esp_mbedtls") {
 
   _ldflags = []
   sources = [
-    "mbedtls/mbedtls/library/ssl_cli.c",
-    "mbedtls/mbedtls/library/gcm.c",
-    "mbedtls/mbedtls/library/camellia.c",
-    "mbedtls/mbedtls/library/chachapoly.c",
-    "mbedtls/mbedtls/library/blowfish.c",
-    "mbedtls/mbedtls/library/pkcs12.c",
-    "mbedtls/mbedtls/library/ecp_curves.c",
-    "mbedtls/mbedtls/library/cipher.c",
-    "mbedtls/mbedtls/library/ssl_ticket.c",
-    "mbedtls/mbedtls/library/timing.c",
-    "mbedtls/mbedtls/library/md.c",
-    "mbedtls/mbedtls/library/aes.c",
-    "mbedtls/mbedtls/library/x509write_csr.c",
-    "mbedtls/mbedtls/library/version_features.c",
-    "mbedtls/mbedtls/library/nist_kw.c",
-    "mbedtls/mbedtls/library/ripemd160.c",
-    "mbedtls/mbedtls/library/rsa.c",
-    "mbedtls/mbedtls/library/md4.c",
-    "mbedtls/mbedtls/library/md_wrap.c",
-    "mbedtls/mbedtls/library/sha256.c",
-    "mbedtls/mbedtls/library/dhm.c",
-    "mbedtls/mbedtls/library/cipher_wrap.c",
-    "mbedtls/mbedtls/library/base64.c",
-    "mbedtls/mbedtls/library/ecp.c",
-    "mbedtls/mbedtls/library/asn1parse.c",
-    "mbedtls/mbedtls/library/padlock.c",
-    "mbedtls/mbedtls/library/pem.c",
-    "mbedtls/mbedtls/library/version.c",
-    "mbedtls/mbedtls/library/ssl_cache.c",
-    "mbedtls/mbedtls/library/cmac.c",
-    "mbedtls/mbedtls/library/entropy_poll.c",
-    "mbedtls/mbedtls/library/md2.c",
-    "mbedtls/mbedtls/library/chacha20.c",
-    "mbedtls/mbedtls/library/ssl_srv.c",
-    "mbedtls/mbedtls/library/x509_crt.c",
-    "mbedtls/mbedtls/library/ecdh.c",
-    "mbedtls/mbedtls/library/asn1write.c",
-    "mbedtls/mbedtls/library/aria.c",
-    "mbedtls/mbedtls/library/platform_util.c",
-    "mbedtls/mbedtls/library/ssl_tls.c",
-    "mbedtls/mbedtls/library/ecjpake.c",
-    "mbedtls/mbedtls/library/oid.c",
-    "mbedtls/mbedtls/library/ecdsa.c",
-    "mbedtls/mbedtls/library/ssl_ciphersuites.c",
-    "mbedtls/mbedtls/library/xtea.c",
-    "mbedtls/mbedtls/library/aesni.c",
-    "mbedtls/mbedtls/library/rsa_internal.c",
-    "mbedtls/mbedtls/library/x509write_crt.c",
-    "mbedtls/mbedtls/library/arc4.c",
-    "mbedtls/mbedtls/library/bignum.c",
-    "mbedtls/mbedtls/library/pkparse.c",
-    "mbedtls/mbedtls/library/debug.c",
-    "mbedtls/mbedtls/library/threading.c",
-    "mbedtls/mbedtls/library/x509_crl.c",
-    "mbedtls/mbedtls/library/pkcs11.c",
-    "mbedtls/mbedtls/library/havege.c",
-    "mbedtls/mbedtls/library/x509.c",
-    "mbedtls/mbedtls/library/certs.c",
-    "mbedtls/mbedtls/library/pkcs5.c",
-    "mbedtls/mbedtls/library/ssl_cookie.c",
-    "mbedtls/mbedtls/library/hkdf.c",
-    "mbedtls/mbedtls/library/error.c",
-    "mbedtls/mbedtls/library/poly1305.c",
-    "mbedtls/mbedtls/library/memory_buffer_alloc.c",
-    "mbedtls/mbedtls/library/hmac_drbg.c",
-    "mbedtls/mbedtls/library/des.c",
-    "mbedtls/mbedtls/library/pk.c",
-    "mbedtls/mbedtls/library/platform.c",
-    "mbedtls/mbedtls/library/ctr_drbg.c",
-    "mbedtls/mbedtls/library/pk_wrap.c",
-    "mbedtls/mbedtls/library/entropy.c",
-    "mbedtls/mbedtls/library/sha512.c",
-    "mbedtls/mbedtls/library/x509_create.c",
-    "mbedtls/mbedtls/library/ccm.c",
-    "mbedtls/mbedtls/library/md5.c",
-    "mbedtls/mbedtls/library/pkwrite.c",
-    "mbedtls/mbedtls/library/sha1.c",
-    "mbedtls/mbedtls/library/x509_csr.c",
     "mbedtls/port/mbedtls_debug.c",
     "mbedtls/port/esp_timing.c",
     "mbedtls/port/esp_bignum.c",
@@ -3278,7 +3109,6 @@ StaticLibrary("esp_newlib") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3322,9 +3152,6 @@ StaticLibrary("esp_newlib") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "nvs_flash/include",
     "pthread/include",
     "soc/include",
@@ -3393,7 +3220,6 @@ StaticLibrary("esp_nvs_flash") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3436,9 +3262,6 @@ StaticLibrary("esp_nvs_flash") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "pthread/include",
     "soc/include",
@@ -3507,7 +3330,6 @@ StaticLibrary("esp_pthread") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3550,9 +3372,6 @@ StaticLibrary("esp_pthread") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "soc/include",
@@ -3610,7 +3429,6 @@ StaticLibrary("esp_soc") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3655,9 +3473,6 @@ StaticLibrary("esp_soc") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -3732,7 +3547,6 @@ StaticLibrary("esp_spi_flash") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3776,9 +3590,6 @@ StaticLibrary("esp_spi_flash") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -3852,7 +3663,6 @@ StaticLibrary("esp_tcpip_adapter") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3895,9 +3705,6 @@ StaticLibrary("esp_tcpip_adapter") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -3973,7 +3780,6 @@ StaticLibrary("esp_wpa_supplicant") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -4020,9 +3826,6 @@ StaticLibrary("esp_wpa_supplicant") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
@@ -4155,7 +3958,6 @@ StaticLibrary("esp_xtensa") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -4206,9 +4008,6 @@ StaticLibrary("esp_xtensa") {
     "lwip/port/esp32/include",
     "lwip/port/esp32/include/arch",
     ".",
-    "mbedtls/port/include",
-    "mbedtls/mbedtls/include",
-    "mbedtls/esp_crt_bundle/include",
     "newlib/platform_include",
     "nvs_flash/include",
     "pthread/include",
