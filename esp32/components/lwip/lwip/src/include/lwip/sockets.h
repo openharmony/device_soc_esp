@@ -58,7 +58,7 @@ extern "C" {
 /* If your port already typedef's sa_family_t, define SA_FAMILY_T_DEFINED
    to prevent this code from redefining it. */
 #if !defined(sa_family_t) && !defined(SA_FAMILY_T_DEFINED)
-typedef u8_t sa_family_t;
+typedef u16_t sa_family_t;
 #endif
 /* If your port already typedef's in_port_t, define IN_PORT_T_DEFINED
    to prevent this code from redefining it. */
@@ -69,7 +69,7 @@ typedef u16_t in_port_t;
 #if LWIP_IPV4
 /* members are in network byte order */
 struct sockaddr_in {
-  u8_t            sin_len;
+  // u8_t            sin_len;
   sa_family_t     sin_family;
   in_port_t       sin_port;
   struct in_addr  sin_addr;
@@ -90,13 +90,11 @@ struct sockaddr_in6 {
 #endif /* LWIP_IPV6 */
 
 struct sockaddr {
-  u8_t        sa_len;
   sa_family_t sa_family;
   char        sa_data[14];
 };
 
 struct sockaddr_storage {
-  u8_t        s2_len;
   sa_family_t ss_family;
   char        s2_data1[2];
   u32_t       s2_data2[3];
