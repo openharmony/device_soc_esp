@@ -752,19 +752,21 @@
    ---------------------------------------
 */
 /**
- * LWIP_IPV6==1: Enable IPv6
+ * LWIP_IPV6==1: Enable IPv6 = CONFIG_LWIP_IPV6
  */
-#define LWIP_IPV6                       CONFIG_LWIP_IPV6
+#define LWIP_IPV6                       0
 
 /**
  * MEMP_NUM_ND6_QUEUE: Max number of IPv6 packets to queue during MAC resolution.
+ * CONFIG_LWIP_IPV6_MEMP_NUM_ND6_QUEUE
  */
-#define MEMP_NUM_ND6_QUEUE              CONFIG_LWIP_IPV6_MEMP_NUM_ND6_QUEUE
+#define MEMP_NUM_ND6_QUEUE              0
 
 /**
  * LWIP_ND6_NUM_NEIGHBORS: Number of entries in IPv6 neighbor cache
+ * CONFIG_LWIP_IPV6_ND6_NUM_NEIGHBORS
  */
-#define LWIP_ND6_NUM_NEIGHBORS          CONFIG_LWIP_IPV6_ND6_NUM_NEIGHBORS
+#define LWIP_ND6_NUM_NEIGHBORS          0
 
 /*
    ---------------------------------------
@@ -980,7 +982,7 @@
 #define ESP_THREAD_PROTECTION           1
 
 #ifdef CONFIG_LWIP_IPV6_AUTOCONFIG
-#define ESP_IPV6_AUTOCONFIG             CONFIG_LWIP_IPV6_AUTOCONFIG
+#define ESP_IPV6_AUTOCONFIG             0 /* CONFIG_LWIP_IPV6_AUTOCONFIG */
 #endif
 
 #ifdef ESP_IRAM_ATTR
