@@ -17,13 +17,14 @@ module_name = "components"
 module_group(module_name) {
   modules = []
   deps = [
-    ":copy_bin",
+    ":boot_bin",
     ":esp_app_update",
     ":esp_bootloader_support",
     ":esp_bt",
     ":esp_cxx",
     ":esp_driver",
     ":esp_efuse",
+    ":esp_esp32",
     ":esp_esp_adc_cal",
     ":esp_esp_common",
     ":esp_esp_event",
@@ -35,7 +36,6 @@ module_group(module_name) {
     ":esp_esp_system",
     ":esp_esp_timer",
     ":esp_esp_wifi",
-    ":esp_esp32",
     ":esp_hal",
     ":esp_heap",
     ":esp_log",
@@ -50,7 +50,8 @@ module_group(module_name) {
     ":esp_tcpip_adapter",
     ":esp_wpa_supplicant",
     ":esp_xtensa",
-    ]
+    ":partition_table",
+  ]
 }
 
 set_defaults("static_library") {
@@ -60,7 +61,7 @@ set_defaults("static_library") {
   cflags_c = []
   cflags_cc = []
   asmflags = []
-  defines  = []
+  defines = []
   include_dirs = []
   public_configs = []
   public = []
@@ -75,31 +76,1071 @@ template("StaticLibrary") {
     cflags_c = invoker._flags_c
     cflags_cc = invoker._flags_cc
     asmflags = invoker._flags_s
-    defines  = invoker._defines
+    defines = invoker._defines
     if (defined(invoker._arflags)) {
       arflags = invoker._arflags
     } else {
       arflags = []
     }
     include_dirs = [
-      "//kernel/liteos_m/kernel/include",
-      "//kernel/liteos_m/arch/include",
-      "//kernel/liteos_m/utils",
-      "//kernel/liteos_m/components/power",
-      "//kernel/liteos_m",
-      "$device_path/include",
-      "mbedtls/port/include",
-      # "mbedtls/mbedtls/include",
-      "//third_party/mbedtls/include",
-      "mbedtls/esp_crt_bundle/include",
-    ] + invoker._includes
-    output_prefix_override=false
+                     "//kernel/liteos_m/kernel/include",
+                     "//kernel/liteos_m/arch/include",
+                     "//kernel/liteos_m/utils",
+                     "//kernel/liteos_m/components/power",
+                     "//kernel/liteos_m",
+                     "$device_path/include",
+                     "mbedtls/port/include",
+
+                     # "mbedtls/mbedtls/include",
+                     "//third_party/mbedtls/include",
+                     "mbedtls/esp_crt_bundle/include",
+                   ] + invoker._includes
+    output_prefix_override = false
     no_default_deps = true
   }
 }
 
 # 导入SDK配置
 import("sdkconfig.gni")
+
+## bootloader.elf转bootloader.bin
+action("boot_bin") {
+  script = rebase_path("esptool_py/esptool/esptool.py")
+  _output_file = "$root_out_dir/bin/bootloader.bin"
+  _input_file = "$root_out_dir/bin/bootloader.elf"
+  outputs = [ _output_file ]
+  inputs = [ _input_file ]
+  args = [
+    "--chip",
+    CONFIG_IDF_TARGET,
+    "elf2image",
+    "--flash_mode",
+    CONFIG_ESPTOOLPY_FLASHMODE,
+    "--flash_freq",
+    CONFIG_ESPTOOLPY_FLASHFREQ,
+    "--flash_size",
+    CONFIG_ESPTOOLPY_FLASHSIZE,
+    "-o",
+    rebase_path(_output_file),
+    rebase_path(_input_file),
+  ]
+  deps = [ ":bootloader" ]
+}
+
+# ============================================= libesp_hw_support
+StaticLibrary("boot_esp_hw_support") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+    "-fno-jump-tables",
+    "-fno-tree-switch-conversion",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+    "port/esp32",
+  ]
+
+  _ldflags = []
+  sources = [
+    "esp_hw_support/compare_set.c",
+    "esp_hw_support/cpu_util.c",
+    "esp_hw_support/port/esp32/rtc_clk.c",
+    "esp_hw_support/port/esp32/rtc_clk_init.c",
+    "esp_hw_support/port/esp32/rtc_init.c",
+    "esp_hw_support/port/esp32/rtc_pm.c",
+    "esp_hw_support/port/esp32/rtc_sleep.c",
+    "esp_hw_support/port/esp32/rtc_time.c",
+    "esp_hw_support/port/esp32/rtc_wdt.c",
+  ]
+}
+
+# ============================================= libbootloader_support
+StaticLibrary("boot_bootloader_support") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+    "src",
+    "src/esp32",
+  ]
+
+  _ldflags = []
+  sources = [
+    "bootloader_support/src/bootloader_clock_init.c",
+    "bootloader_support/src/bootloader_clock_loader.c",
+    "bootloader_support/src/bootloader_common.c",
+    "bootloader_support/src/bootloader_common_loader.c",
+    "bootloader_support/src/bootloader_console.c",
+    "bootloader_support/src/bootloader_console_loader.c",
+    "bootloader_support/src/bootloader_efuse_esp32.c",
+    "bootloader_support/src/bootloader_flash.c",
+    "bootloader_support/src/bootloader_flash_config_esp32.c",
+    "bootloader_support/src/bootloader_init.c",
+    "bootloader_support/src/bootloader_mem.c",
+    "bootloader_support/src/bootloader_panic.c",
+    "bootloader_support/src/bootloader_random.c",
+    "bootloader_support/src/bootloader_random_esp32.c",
+    "bootloader_support/src/bootloader_utility.c",
+    "bootloader_support/src/esp32/bootloader_esp32.c",
+    "bootloader_support/src/esp32/bootloader_sha.c",
+    "bootloader_support/src/esp32/flash_encrypt.c",
+    "bootloader_support/src/esp_image_format.c",
+    "bootloader_support/src/flash_encrypt.c",
+    "bootloader_support/src/flash_partitions.c",
+    "bootloader_support/src/flash_qio_mode.c",
+    "bootloader_support/src/secure_boot.c",
+  ]
+}
+
+# ============================================= liblog
+StaticLibrary("boot_log") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "log/include",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+  ]
+
+  _ldflags = []
+  sources = [
+    "log/log.c",
+    "log/log_buffers.c",
+    "log/log_noos.c",
+  ]
+}
+
+# ============================================= libspi_flash
+StaticLibrary("boot_spi_flash") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "spi_flash/private_include",
+    "spi_flash/include",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+    "esp32",
+  ]
+
+  _ldflags = []
+  sources = [ "spi_flash/esp32/spi_flash_rom_patch.c" ]
+}
+
+# ============================================= libmicro-ecc
+StaticLibrary("boot_micro-ecc") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+  ]
+
+  _ldflags = []
+  sources =
+      [ "bootloader/subproject/components/micro-ecc/uECC_verify_antifault.c" ]
+}
+
+# ============================================= libsoc
+StaticLibrary("boot_soc") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+    "esp32",
+  ]
+
+  _ldflags = []
+  sources = [
+    "soc/esp32/adc_periph.c",
+    "soc/esp32/dac_periph.c",
+    "soc/esp32/gpio_periph.c",
+    "soc/esp32/i2c_periph.c",
+    "soc/esp32/i2s_periph.c",
+    "soc/esp32/interrupts.c",
+    "soc/esp32/ledc_periph.c",
+    "soc/esp32/pcnt_periph.c",
+    "soc/esp32/rmt_periph.c",
+    "soc/esp32/rtc_io_periph.c",
+    "soc/esp32/sdio_slave_periph.c",
+    "soc/esp32/sdmmc_periph.c",
+    "soc/esp32/sigmadelta_periph.c",
+    "soc/esp32/soc_memory_layout.c",
+    "soc/esp32/spi_periph.c",
+    "soc/esp32/timer_periph.c",
+    "soc/esp32/touch_sensor_periph.c",
+    "soc/esp32/uart_periph.c",
+    "soc/lldesc.c",
+    "soc/memory_layout_utils.c",
+    "soc/soc_include_legacy_warn.c",
+  ]
+}
+
+# ============================================= libmain
+StaticLibrary("boot_main") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "bootloader/subproject/main/include",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+  ]
+
+  _ldflags = []
+  sources = [ "bootloader/subproject/main/bootloader_start.c" ]
+}
+
+# ============================================= libefuse
+StaticLibrary("boot_efuse") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "efuse/private_include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+    "esp32",
+    "src",
+    "src/esp32",
+  ]
+
+  _ldflags = []
+  sources = [
+    "efuse/esp32/esp_efuse_table.c",
+    "efuse/src/esp32/esp_efuse_api.c",
+    "efuse/src/esp32/esp_efuse_fields.c",
+    "efuse/src/esp32/esp_efuse_utility.c",
+    "efuse/src/esp_efuse_api.c",
+    "efuse/src/esp_efuse_fields.c",
+    "efuse/src/esp_efuse_utility.c",
+  ]
+}
+
+# ============================================= libesp_rom
+StaticLibrary("boot_esp_rom") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = [
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "hal/esp32/include",
+    "hal/include",
+    "patches",
+  ]
+
+  _ldflags = []
+  sources = [
+    "esp_rom/patches/esp_rom_crc.c",
+    "esp_rom/patches/esp_rom_longjmp.S",
+    "esp_rom/patches/esp_rom_sys.c",
+    "esp_rom/patches/esp_rom_uart.c",
+  ]
+}
+
+# ============================================= libhal
+StaticLibrary("boot_hal") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = []
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "hal/esp32/include",
+    "hal/include",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "esp32",
+  ]
+
+  _ldflags = []
+  sources = [
+    "hal/adc_hal.c",
+    "hal/aes_hal.c",
+    "hal/cpu_hal.c",
+    "hal/dac_hal.c",
+    "hal/esp32/adc_hal.c",
+    "hal/esp32/brownout_hal.c",
+    "hal/esp32/gpio_hal_workaround.c",
+    "hal/esp32/interrupt_descriptor_table.c",
+    "hal/esp32/touch_sensor_hal.c",
+    "hal/gpio_hal.c",
+    "hal/i2c_hal.c",
+    "hal/i2c_hal_iram.c",
+    "hal/i2s_hal.c",
+    "hal/interrupt_controller_hal.c",
+    "hal/ledc_hal.c",
+    "hal/ledc_hal_iram.c",
+    "hal/mcpwm_hal.c",
+    "hal/mpu_hal.c",
+    "hal/pcnt_hal.c",
+    "hal/rmt_hal.c",
+    "hal/rtc_io_hal.c",
+    "hal/sdio_slave_hal.c",
+    "hal/sha_hal.c",
+    "hal/sigmadelta_hal.c",
+    "hal/soc_hal.c",
+    "hal/spi_flash_hal.c",
+    "hal/spi_flash_hal_iram.c",
+    "hal/spi_hal.c",
+    "hal/spi_hal_iram.c",
+    "hal/spi_slave_hal.c",
+    "hal/spi_slave_hal_iram.c",
+    "hal/timer_hal.c",
+    "hal/touch_sensor_hal.c",
+    "hal/twai_hal.c",
+    "hal/twai_hal_iram.c",
+    "hal/uart_hal.c",
+    "hal/uart_hal_iram.c",
+    "hal/wdt_hal_iram.c",
+  ]
+}
+
+# ============================================= libxtensa
+StaticLibrary("boot_xtensa") {
+  _flags_c = [
+    "-std=gnu99",
+    "-Os",
+    "-freorder-blocks",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = [
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_cc = []
+  _defines = [
+    "BOOTLOADER_BUILD=1",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+  _includes = [
+    "esp32/include",
+    "esp_common/include",
+    "newlib/platform_include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    ".",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "bootloader_support/include",
+    "bootloader_support/include_bootloader",
+    "log/include",
+    "spi_flash/include",
+    "bootloader/subproject/components/micro-ecc",
+    "bootloader/subproject/components/micro-ecc/micro-ecc",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "bootloader/subproject/main/include",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "hal/esp32/include",
+    "hal/include",
+    "esp32",
+  ]
+
+  _ldflags = []
+  sources = [
+    "xtensa/debug_helpers.c",
+    "xtensa/debug_helpers_asm.S",
+    "xtensa/eri.c",
+    "xtensa/esp32/trax_init.c",
+    "xtensa/stdatomic.c",
+    "xtensa/trax.c",
+  ]
+}
+
+executable("bootloader") {
+  no_default_deps = true
+  cflags = []
+  output_name = "bootloader.elf"
+  lib_dirs = [
+    rebase_path("$root_out_dir/libs"),
+    rebase_path("libs"),
+  ]
+  cflags_c = []
+  asmflags = []
+  cflags_cc = []
+  defines = []
+  include_dirs = []
+  ldflags = [
+    "-nostdlib",
+    "-ucall_user_start_cpu0",
+    "-Wl,--gc-sections",
+    "-Wl,-static",
+    "-Tbootloader.ld",
+    "-Tbootloader.rom.ld",
+    "-Tesp32.rom.ld",
+    "-Tesp32.rom.newlib-funcs.ld",
+    "-Tesp32.rom.api.ld",
+    "-Tesp32.peripherals.ld",
+    "-Tesp32.rom.libgcc.ld",
+    "-Tesp32.rom.syscalls.ld",
+    "-Tesp32.rom.newlib-data.ld",
+    "-Tesp32.rom.newlib-time.ld",
+    "-Wl,--wrap=longjmp",
+    "-Wl,-EL",
+    "-fno-rtti",
+  ]
+  inputs = [
+    rebase_path("libs/bootloader.ld"),
+    rebase_path("libs/bootloader.rom.ld"),
+    rebase_path("libs/esp32.rom.ld"),
+    rebase_path("libs/esp32.rom.api.ld"),
+    rebase_path("libs/esp32.rom.syscalls.ld"),
+  ]
+  libs = [
+    "xt_hal",
+    "gcc",
+    "stdc++",
+    "gcov",
+  ]
+
+  sources = []
+  deps = [
+    ":boot_bootloader_support",
+    ":boot_efuse",
+    ":boot_esp_hw_support",
+    ":boot_esp_rom",
+    ":boot_hal",
+    ":boot_log",
+    ":boot_main",
+    ":boot_micro-ecc",
+    ":boot_soc",
+    ":boot_spi_flash",
+    ":boot_xtensa",
+  ]
+}
+
+# 生成分区表
+action("partition_table") {
+  script = rebase_path("partition_table/gen_esp32part.py")
+  _output_file = "$root_out_dir/bin/partitions.bin"
+  _input_file = "partition_table/" + CONFIG_PARTITION_TABLE_FILENAME
+  outputs = [ _output_file ]
+  inputs = [ _input_file ]
+  args = [
+    "-q",
+    "--flash-size",
+    CONFIG_ESPTOOLPY_FLASHSIZE,
+    "--offset",
+    CONFIG_PARTITION_TABLE_OFFSET,
+    rebase_path(_input_file),
+    rebase_path(_output_file),
+  ]
+}
 
 # ============================================= libapp_update
 StaticLibrary("esp_app_update") {
@@ -195,10 +1236,9 @@ StaticLibrary("esp_app_update") {
 
   _ldflags = []
   sources = [
-    "app_update/esp_ota_ops.c",
     "app_update/esp_app_desc.c",
+    "app_update/esp_ota_ops.c",
   ]
-
 }
 
 # ============================================= libbootloader_support
@@ -296,22 +1336,22 @@ StaticLibrary("esp_bootloader_support") {
 
   _ldflags = []
   sources = [
-    "bootloader_support/src/bootloader_random_esp32.c",
     "bootloader_support/src/bootloader_clock_init.c",
-    "bootloader_support/src/bootloader_flash.c",
-    "bootloader_support/src/flash_qio_mode.c",
-    "bootloader_support/src/bootloader_mem.c",
-    "bootloader_support/src/bootloader_common_loader.c",
     "bootloader_support/src/bootloader_common.c",
-    "bootloader_support/src/secure_boot.c",
-    "bootloader_support/src/bootloader_random.c",
+    "bootloader_support/src/bootloader_common_loader.c",
     "bootloader_support/src/bootloader_efuse_esp32.c",
+    "bootloader_support/src/bootloader_flash.c",
     "bootloader_support/src/bootloader_flash_config_esp32.c",
-    "bootloader_support/src/flash_partitions.c",
+    "bootloader_support/src/bootloader_mem.c",
+    "bootloader_support/src/bootloader_random.c",
+    "bootloader_support/src/bootloader_random_esp32.c",
+    "bootloader_support/src/bootloader_utility.c",
     "bootloader_support/src/esp_image_format.c",
     "bootloader_support/src/flash_encrypt.c",
-    "bootloader_support/src/bootloader_utility.c",
+    "bootloader_support/src/flash_partitions.c",
+    "bootloader_support/src/flash_qio_mode.c",
     "bootloader_support/src/idf/bootloader_sha.c",
+    "bootloader_support/src/secure_boot.c",
   ]
 }
 
@@ -534,11 +1574,13 @@ StaticLibrary("esp_bt") {
   ]
   _ldflags = []
   sources = [
-    "bt/controller/esp32/bt.c",
     "bt/common/api/esp_blufi_api.c",
     "bt/common/btc/core/btc_alarm.c",
     "bt/common/btc/core/btc_manage.c",
     "bt/common/btc/core/btc_task.c",
+    "bt/common/btc/profile/esp/blufi/bluedroid_host/esp_blufi.c",
+    "bt/common/btc/profile/esp/blufi/blufi_prf.c",
+    "bt/common/btc/profile/esp/blufi/blufi_protocol.c",
     "bt/common/osi/alarm.c",
     "bt/common/osi/allocator.c",
     "bt/common/osi/buffer.c",
@@ -552,8 +1594,15 @@ StaticLibrary("esp_bt") {
     "bt/common/osi/osi.c",
     "bt/common/osi/semaphore.c",
     "bt/common/osi/thread.c",
-    "bt/common/btc/profile/esp/blufi/blufi_prf.c",
-    "bt/common/btc/profile/esp/blufi/blufi_protocol.c",
+    "bt/controller/esp32/bt.c",
+    "bt/host/bluedroid/api/esp_bt_device.c",
+    "bt/host/bluedroid/api/esp_bt_main.c",
+    "bt/host/bluedroid/api/esp_gap_ble_api.c",
+    "bt/host/bluedroid/api/esp_gap_bt_api.c",
+    "bt/host/bluedroid/api/esp_gatt_common_api.c",
+    "bt/host/bluedroid/api/esp_gattc_api.c",
+    "bt/host/bluedroid/api/esp_gatts_api.c",
+    "bt/host/bluedroid/api/esp_spp_api.c",
     "bt/host/bluedroid/bta/dm/bta_dm_act.c",
     "bt/host/bluedroid/bta/dm/bta_dm_api.c",
     "bt/host/bluedroid/bta/dm/bta_dm_cfg.c",
@@ -563,13 +1612,13 @@ StaticLibrary("esp_bt") {
     "bt/host/bluedroid/bta/dm/bta_dm_pm.c",
     "bt/host/bluedroid/bta/dm/bta_dm_qos.c",
     "bt/host/bluedroid/bta/dm/bta_dm_sco.c",
+    "bt/host/bluedroid/bta/gatt/bta_gatt_common.c",
     "bt/host/bluedroid/bta/gatt/bta_gattc_act.c",
     "bt/host/bluedroid/bta/gatt/bta_gattc_api.c",
     "bt/host/bluedroid/bta/gatt/bta_gattc_cache.c",
     "bt/host/bluedroid/bta/gatt/bta_gattc_ci.c",
     "bt/host/bluedroid/bta/gatt/bta_gattc_co.c",
     "bt/host/bluedroid/bta/gatt/bta_gattc_main.c",
-    "bt/host/bluedroid/bta/gatt/bta_gatt_common.c",
     "bt/host/bluedroid/bta/gatt/bta_gattc_utils.c",
     "bt/host/bluedroid/bta/gatt/bta_gatts_act.c",
     "bt/host/bluedroid/bta/gatt/bta_gatts_api.c",
@@ -582,47 +1631,13 @@ StaticLibrary("esp_bt") {
     "bt/host/bluedroid/bta/hh/bta_hh_le.c",
     "bt/host/bluedroid/bta/hh/bta_hh_main.c",
     "bt/host/bluedroid/bta/hh/bta_hh_utils.c",
+    "bt/host/bluedroid/bta/sdp/bta_sdp.c",
     "bt/host/bluedroid/bta/sdp/bta_sdp_act.c",
     "bt/host/bluedroid/bta/sdp/bta_sdp_api.c",
-    "bt/host/bluedroid/bta/sdp/bta_sdp.c",
     "bt/host/bluedroid/bta/sdp/bta_sdp_cfg.c",
     "bt/host/bluedroid/bta/sys/bta_sys_conn.c",
     "bt/host/bluedroid/bta/sys/bta_sys_main.c",
     "bt/host/bluedroid/bta/sys/utl.c",
-    "bt/host/bluedroid/device/bdaddr.c",
-    "bt/host/bluedroid/device/controller.c",
-    "bt/host/bluedroid/device/interop.c",
-    "bt/host/bluedroid/hci/hci_audio.c",
-    "bt/host/bluedroid/hci/hci_hal_h4.c",
-    "bt/host/bluedroid/hci/hci_layer.c",
-    "bt/host/bluedroid/hci/hci_packet_factory.c",
-    "bt/host/bluedroid/hci/hci_packet_parser.c",
-    "bt/host/bluedroid/hci/packet_fragmenter.c",
-    "bt/host/bluedroid/main/bte_init.c",
-    "bt/host/bluedroid/main/bte_main.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/alloc.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/bitalloc.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/bitalloc-sbc.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/bitstream-decode.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/decoder-oina.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/decoder-private.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/decoder-sbc.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/dequant.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/framing.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/framing-sbc.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/oi_codec_version.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/synthesis-8-generated.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/synthesis-dct8.c",
-    "bt/host/bluedroid/external/sbc/decoder/srce/synthesis-sbc.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_analysis.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_dct.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_dct_coeffs.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_enc_bit_alloc_mono.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_enc_bit_alloc_ste.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_enc_coeffs.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_encoder.c",
-    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_packing.c",
-    "bt/host/bluedroid/external/sbc/plc/sbc_plc.c",
     "bt/host/bluedroid/btc/core/btc_ble_storage.c",
     "bt/host/bluedroid/btc/core/btc_config.c",
     "bt/host/bluedroid/btc/core/btc_dev.c",
@@ -636,20 +1651,54 @@ StaticLibrary("esp_bt") {
     "bt/host/bluedroid/btc/profile/std/gap/bta_gap_bt_co.c",
     "bt/host/bluedroid/btc/profile/std/gap/btc_gap_ble.c",
     "bt/host/bluedroid/btc/profile/std/gap/btc_gap_bt.c",
-    "bt/host/bluedroid/btc/profile/std/gatt/btc_gattc.c",
     "bt/host/bluedroid/btc/profile/std/gatt/btc_gatt_common.c",
-    "bt/host/bluedroid/btc/profile/std/gatt/btc_gatts.c",
     "bt/host/bluedroid/btc/profile/std/gatt/btc_gatt_util.c",
-    "bt/host/bluedroid/btc/profile/std/spp/btc_spp.c",
+    "bt/host/bluedroid/btc/profile/std/gatt/btc_gattc.c",
+    "bt/host/bluedroid/btc/profile/std/gatt/btc_gatts.c",
     "bt/host/bluedroid/btc/profile/std/hid/hidh_api.c",
     "bt/host/bluedroid/btc/profile/std/hid/hidh_conn.c",
+    "bt/host/bluedroid/btc/profile/std/spp/btc_spp.c",
+    "bt/host/bluedroid/device/bdaddr.c",
+    "bt/host/bluedroid/device/controller.c",
+    "bt/host/bluedroid/device/interop.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/alloc.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/bitalloc-sbc.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/bitalloc.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/bitstream-decode.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/decoder-oina.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/decoder-private.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/decoder-sbc.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/dequant.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/framing-sbc.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/framing.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/oi_codec_version.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/synthesis-8-generated.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/synthesis-dct8.c",
+    "bt/host/bluedroid/external/sbc/decoder/srce/synthesis-sbc.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_analysis.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_dct.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_dct_coeffs.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_enc_bit_alloc_mono.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_enc_bit_alloc_ste.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_enc_coeffs.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_encoder.c",
+    "bt/host/bluedroid/external/sbc/encoder/srce/sbc_packing.c",
+    "bt/host/bluedroid/external/sbc/plc/sbc_plc.c",
+    "bt/host/bluedroid/hci/hci_audio.c",
+    "bt/host/bluedroid/hci/hci_hal_h4.c",
+    "bt/host/bluedroid/hci/hci_layer.c",
+    "bt/host/bluedroid/hci/hci_packet_factory.c",
+    "bt/host/bluedroid/hci/hci_packet_parser.c",
+    "bt/host/bluedroid/hci/packet_fragmenter.c",
+    "bt/host/bluedroid/main/bte_init.c",
+    "bt/host/bluedroid/main/bte_main.c",
     "bt/host/bluedroid/stack/btm/btm_acl.c",
+    "bt/host/bluedroid/stack/btm/btm_ble.c",
     "bt/host/bluedroid/stack/btm/btm_ble_5_gap.c",
     "bt/host/bluedroid/stack/btm/btm_ble_addr.c",
     "bt/host/bluedroid/stack/btm/btm_ble_adv_filter.c",
     "bt/host/bluedroid/stack/btm/btm_ble_batchscan.c",
     "bt/host/bluedroid/stack/btm/btm_ble_bgconn.c",
-    "bt/host/bluedroid/stack/btm/btm_ble.c",
     "bt/host/bluedroid/stack/btm/btm_ble_cont_energy.c",
     "bt/host/bluedroid/stack/btm/btm_ble_gap.c",
     "bt/host/bluedroid/stack/btm/btm_ble_multi_adv.c",
@@ -679,7 +1728,6 @@ StaticLibrary("esp_bt") {
     "bt/host/bluedroid/stack/gatt/gatt_utils.c",
     "bt/host/bluedroid/stack/hcic/hciblecmds.c",
     "bt/host/bluedroid/stack/hcic/hcicmds.c",
-    "bt/host/bluedroid/stack/l2cap/l2cap_client.c",
     "bt/host/bluedroid/stack/l2cap/l2c_api.c",
     "bt/host/bluedroid/stack/l2cap/l2c_ble.c",
     "bt/host/bluedroid/stack/l2cap/l2c_csm.c",
@@ -688,6 +1736,16 @@ StaticLibrary("esp_bt") {
     "bt/host/bluedroid/stack/l2cap/l2c_main.c",
     "bt/host/bluedroid/stack/l2cap/l2c_ucd.c",
     "bt/host/bluedroid/stack/l2cap/l2c_utils.c",
+    "bt/host/bluedroid/stack/l2cap/l2cap_client.c",
+    "bt/host/bluedroid/stack/rfcomm/port_api.c",
+    "bt/host/bluedroid/stack/rfcomm/port_rfc.c",
+    "bt/host/bluedroid/stack/rfcomm/port_utils.c",
+    "bt/host/bluedroid/stack/rfcomm/rfc_l2cap_if.c",
+    "bt/host/bluedroid/stack/rfcomm/rfc_mx_fsm.c",
+    "bt/host/bluedroid/stack/rfcomm/rfc_port_fsm.c",
+    "bt/host/bluedroid/stack/rfcomm/rfc_port_if.c",
+    "bt/host/bluedroid/stack/rfcomm/rfc_ts_frames.c",
+    "bt/host/bluedroid/stack/rfcomm/rfc_utils.c",
     "bt/host/bluedroid/stack/sdp/sdp_api.c",
     "bt/host/bluedroid/stack/sdp/sdp_db.c",
     "bt/host/bluedroid/stack/sdp/sdp_discovery.c",
@@ -706,24 +1764,6 @@ StaticLibrary("esp_bt") {
     "bt/host/bluedroid/stack/smp/smp_l2c.c",
     "bt/host/bluedroid/stack/smp/smp_main.c",
     "bt/host/bluedroid/stack/smp/smp_utils.c",
-    "bt/host/bluedroid/stack/rfcomm/port_api.c",
-    "bt/host/bluedroid/stack/rfcomm/port_rfc.c",
-    "bt/host/bluedroid/stack/rfcomm/port_utils.c",
-    "bt/host/bluedroid/stack/rfcomm/rfc_l2cap_if.c",
-    "bt/host/bluedroid/stack/rfcomm/rfc_mx_fsm.c",
-    "bt/host/bluedroid/stack/rfcomm/rfc_port_fsm.c",
-    "bt/host/bluedroid/stack/rfcomm/rfc_port_if.c",
-    "bt/host/bluedroid/stack/rfcomm/rfc_ts_frames.c",
-    "bt/host/bluedroid/stack/rfcomm/rfc_utils.c",
-    "bt/host/bluedroid/api/esp_bt_device.c",
-    "bt/host/bluedroid/api/esp_bt_main.c",
-    "bt/host/bluedroid/api/esp_gap_ble_api.c",
-    "bt/host/bluedroid/api/esp_gap_bt_api.c",
-    "bt/host/bluedroid/api/esp_gattc_api.c",
-    "bt/host/bluedroid/api/esp_gatt_common_api.c",
-    "bt/host/bluedroid/api/esp_gatts_api.c",
-    "bt/host/bluedroid/api/esp_spp_api.c",
-    "bt/common/btc/profile/esp/blufi/bluedroid_host/esp_blufi.c",
   ]
 }
 
@@ -821,10 +1861,9 @@ StaticLibrary("esp_cxx") {
 
   _ldflags = []
   sources = [
-    "cxx/cxx_guards.cpp",
     "cxx/cxx_exception_stubs.cpp",
+    "cxx/cxx_guards.cpp",
   ]
-
 }
 
 # ============================================= libdriver
@@ -922,38 +1961,43 @@ StaticLibrary("esp_driver") {
 
   _ldflags = []
   sources = [
-    "driver/spi_common.c",
     "driver/adc_common.c",
-    "driver/spi_master.c",
-#    "driver/sigmadelta.c",
-#    "driver/touch_sensor_common.c",
-#    "driver/sdio_slave.c",
-#    "driver/i2s.c",
-#    "driver/sdspi_transaction.c",
-    "driver/ledc.c",
-    "driver/uart.c",
-#    "driver/twai.c",
-#    "driver/sdspi_host.c",
-    "driver/gpio.c",
-#    "driver/pcnt.c",
-#    "driver/sdspi_crc.c",
-#    "driver/sdmmc_host.c",
-    "driver/rmt.c",
-    "driver/spi_bus_lock.c",
-#    "driver/mcpwm.c",
-#    "driver/sdmmc_transaction.c",
-    "driver/dac_common.c",
-    "driver/spi_slave.c",
-    "driver/i2c.c",
-    "driver/rtc_io.c",
-#    "driver/timer.c",
-    "driver/periph_ctrl.c",
-    "driver/rtc_module.c",
-#    "driver/esp32/touch_sensor.c",
-    "driver/esp32/dac.c",
-    "driver/esp32/adc.c",
-  ]
 
+    #    "driver/mcpwm.c",
+    #    "driver/sdmmc_transaction.c",
+    "driver/dac_common.c",
+    "driver/esp32/adc.c",
+
+    #    "driver/esp32/touch_sensor.c",
+    "driver/esp32/dac.c",
+
+    #    "driver/twai.c",
+    #    "driver/sdspi_host.c",
+    "driver/gpio.c",
+    "driver/i2c.c",
+
+    #    "driver/sigmadelta.c",
+    #    "driver/touch_sensor_common.c",
+    #    "driver/sdio_slave.c",
+    #    "driver/i2s.c",
+    #    "driver/sdspi_transaction.c",
+    "driver/ledc.c",
+
+    #    "driver/timer.c",
+    "driver/periph_ctrl.c",
+
+    #    "driver/pcnt.c",
+    #    "driver/sdspi_crc.c",
+    #    "driver/sdmmc_host.c",
+    "driver/rmt.c",
+    "driver/rtc_io.c",
+    "driver/rtc_module.c",
+    "driver/spi_bus_lock.c",
+    "driver/spi_common.c",
+    "driver/spi_master.c",
+    "driver/spi_slave.c",
+    "driver/uart.c",
+  ]
 }
 
 # ============================================= libefuse
@@ -1053,14 +2097,13 @@ StaticLibrary("esp_efuse") {
   _ldflags = []
   sources = [
     "efuse/esp32/esp_efuse_table.c",
-    "efuse/src/esp_efuse_utility.c",
-    "efuse/src/esp_efuse_fields.c",
-    "efuse/src/esp_efuse_api.c",
     "efuse/src/esp32/esp_efuse_api.c",
-    "efuse/src/esp32/esp_efuse_utility.c",
     "efuse/src/esp32/esp_efuse_fields.c",
+    "efuse/src/esp32/esp_efuse_utility.c",
+    "efuse/src/esp_efuse_api.c",
+    "efuse/src/esp_efuse_fields.c",
+    "efuse/src/esp_efuse_utility.c",
   ]
-
 }
 
 # ============================================= libesp32
@@ -1155,18 +2198,17 @@ StaticLibrary("esp_esp32") {
 
   _ldflags = []
   sources = [
-    "esp32/cache_sram_mmu.c",
-    "esp32/crosscore_int.c",
-    "esp32/clk.c",
-    "esp32/spiram.c",
     "esp32/cache_err_int.c",
-    "esp32/system_api_esp32.c",
-    "esp32/spiram_psram.c",
-    "esp32/hw_random.c",
+    "esp32/cache_sram_mmu.c",
+    "esp32/clk.c",
+    "esp32/crosscore_int.c",
     "esp32/dport_access.c",
     "esp32/esp_himem.c",
+    "esp32/hw_random.c",
+    "esp32/spiram.c",
+    "esp32/spiram_psram.c",
+    "esp32/system_api_esp32.c",
   ]
-
 }
 
 # ============================================= libesp_adc_cal
@@ -1261,10 +2303,7 @@ StaticLibrary("esp_esp_adc_cal") {
   ]
 
   _ldflags = []
-  sources = [
-    "esp_adc_cal/esp_adc_cal_esp32.c",
-  ]
-
+  sources = [ "esp_adc_cal/esp_adc_cal_esp32.c" ]
 }
 
 # ============================================= libesp_common
@@ -1360,17 +2399,16 @@ StaticLibrary("esp_esp_common") {
 
   _ldflags = []
   sources = [
-    "esp_common/src/task_wdt.c",
+    "esp_common/src/brownout.c",
     "esp_common/src/dbg_stubs.c",
-    "esp_common/src/int_wdt.c",
-    "esp_common/src/mac_addr.c",
-    "esp_common/src/freertos_hooks.c",
     "esp_common/src/esp_err.c",
     "esp_common/src/esp_err_to_name.c",
+    "esp_common/src/freertos_hooks.c",
+    "esp_common/src/int_wdt.c",
+    "esp_common/src/mac_addr.c",
     "esp_common/src/stack_check.c",
-    "esp_common/src/brownout.c",
+    "esp_common/src/task_wdt.c",
   ]
-
 }
 
 # ============================================= libesp_event
@@ -1467,12 +2505,11 @@ StaticLibrary("esp_esp_event") {
   _ldflags = []
   sources = [
     "esp_event/default_event_loop.c",
-    "esp_event/event_send.c",
     "esp_event/esp_event.c",
-    "esp_event/event_loop_legacy.c",
     "esp_event/esp_event_private.c",
+    "esp_event/event_loop_legacy.c",
+    "esp_event/event_send.c",
   ]
-
 }
 
 # ============================================= libesp_hw_support
@@ -1570,18 +2607,17 @@ StaticLibrary("esp_esp_hw_support") {
 
   _ldflags = []
   sources = [
-    "esp_hw_support/cpu_util.c",
     "esp_hw_support/clk_ctrl_os.c",
     "esp_hw_support/compare_set.c",
-    "esp_hw_support/port/esp32/rtc_pm.c",
-    "esp_hw_support/port/esp32/rtc_wdt.c",
-    "esp_hw_support/port/esp32/rtc_time.c",
-    "esp_hw_support/port/esp32/rtc_init.c",
-    "esp_hw_support/port/esp32/rtc_clk_init.c",
-    "esp_hw_support/port/esp32/rtc_sleep.c",
+    "esp_hw_support/cpu_util.c",
     "esp_hw_support/port/esp32/rtc_clk.c",
+    "esp_hw_support/port/esp32/rtc_clk_init.c",
+    "esp_hw_support/port/esp32/rtc_init.c",
+    "esp_hw_support/port/esp32/rtc_pm.c",
+    "esp_hw_support/port/esp32/rtc_sleep.c",
+    "esp_hw_support/port/esp32/rtc_time.c",
+    "esp_hw_support/port/esp32/rtc_wdt.c",
   ]
-
 }
 
 # ============================================= libesp_netif
@@ -1681,14 +2717,13 @@ StaticLibrary("esp_esp_netif") {
   _ldflags = []
   sources = [
     "esp_netif/esp_netif_defaults.c",
-    "esp_netif/esp_netif_objects.c",
     "esp_netif/esp_netif_handlers.c",
-    "esp_netif/lwip/esp_netif_sta_list.c",
+    "esp_netif/esp_netif_objects.c",
+    "esp_netif/loopback/esp_netif_loopback.c",
     "esp_netif/lwip/esp_netif_lwip.c",
     "esp_netif/lwip/esp_netif_lwip_defaults.c",
-    "esp_netif/loopback/esp_netif_loopback.c",
+    "esp_netif/lwip/esp_netif_sta_list.c",
   ]
-
 }
 
 # ============================================= libesp_pm
@@ -1783,11 +2818,10 @@ StaticLibrary("esp_esp_pm") {
 
   _ldflags = []
   sources = [
-    "esp_pm/pm_trace.c",
     "esp_pm/pm_impl.c",
     "esp_pm/pm_locks.c",
+    "esp_pm/pm_trace.c",
   ]
-
 }
 
 # ============================================= libesp_ringbuf
@@ -1881,10 +2915,7 @@ StaticLibrary("esp_esp_ringbuf") {
   ]
 
   _ldflags = []
-  sources = [
-    "esp_ringbuf/ringbuf.c",
-  ]
-
+  sources = [ "esp_ringbuf/ringbuf.c" ]
 }
 
 # ============================================= libesp_rom
@@ -1985,11 +3016,10 @@ StaticLibrary("esp_esp_rom") {
   _ldflags = []
   sources = [
     "esp_rom/patches/esp_rom_crc.c",
-    "esp_rom/patches/esp_rom_uart.c",
-    "esp_rom/patches/esp_rom_sys.c",
     "esp_rom/patches/esp_rom_longjmp.S",
+    "esp_rom/patches/esp_rom_sys.c",
+    "esp_rom/patches/esp_rom_uart.c",
   ]
-
 }
 
 # ============================================= libesp_system
@@ -2093,23 +3123,22 @@ StaticLibrary("esp_esp_system") {
 
   _ldflags = []
   sources = [
-    "esp_system/panic.c",
-    "esp_system/sleep_modes.c",
-    "esp_system/system_api.c",
-    "esp_system/system_time.c",
-    "esp_system/intr_alloc.c",
     "esp_system/esp_async_memcpy.c",
-    "esp_system/startup.c",
+    "esp_system/intr_alloc.c",
+    "esp_system/panic.c",
+    "esp_system/port/arch/xtensa/panic_arch.c",
+    "esp_system/port/arch/xtensa/panic_handler_asm.S",
     "esp_system/port/cpu_start.c",
     "esp_system/port/panic_handler.c",
-    "esp_system/port/soc/esp32/reset_reason.c",
     "esp_system/port/soc/esp32/clk.c",
-    "esp_system/port/soc/esp32/intr.c",
-    "esp_system/port/arch/xtensa/panic_arch.c",
     "esp_system/port/soc/esp32/dport_panic_highint_hdl.S",
-    "esp_system/port/arch/xtensa/panic_handler_asm.S",
+    "esp_system/port/soc/esp32/intr.c",
+    "esp_system/port/soc/esp32/reset_reason.c",
+    "esp_system/sleep_modes.c",
+    "esp_system/startup.c",
+    "esp_system/system_api.c",
+    "esp_system/system_time.c",
   ]
-
 }
 
 # ============================================= libesp_timer
@@ -2206,9 +3235,9 @@ StaticLibrary("esp_esp_timer") {
 
   _ldflags = []
   sources = [
+    "esp_timer/src/esp_timer.c",
     "esp_timer/src/esp_timer_impl_lac.c",
     "esp_timer/src/ets_timer_legacy.c",
-    "esp_timer/src/esp_timer.c",
   ]
 }
 
@@ -2306,16 +3335,16 @@ StaticLibrary("esp_esp_wifi") {
 
   _ldflags = []
   sources = [
-    "esp_wifi/src/lib_printf.c",
-    "esp_wifi/src/smartconfig.c",
-    "esp_wifi/src/wifi_default.c",
-    "esp_wifi/src/wifi_netif.c",
-    "esp_wifi/src/phy_init.c",
-    "esp_wifi/src/mesh_event.c",
-    "esp_wifi/src/smartconfig_ack.c",
-    "esp_wifi/src/coexist.c",
-    "esp_wifi/src/wifi_init.c",
     "esp_wifi/esp32/esp_adapter.c",
+    "esp_wifi/src/coexist.c",
+    "esp_wifi/src/lib_printf.c",
+    "esp_wifi/src/mesh_event.c",
+    "esp_wifi/src/phy_init.c",
+    "esp_wifi/src/smartconfig.c",
+    "esp_wifi/src/smartconfig_ack.c",
+    "esp_wifi/src/wifi_default.c",
+    "esp_wifi/src/wifi_init.c",
+    "esp_wifi/src/wifi_netif.c",
   ]
 }
 
@@ -2412,47 +3441,46 @@ StaticLibrary("esp_hal") {
 
   _ldflags = []
   sources = [
-    "hal/rtc_io_hal.c",
-    "hal/rmt_hal.c",
-    "hal/spi_slave_hal_iram.c",
+    "hal/adc_hal.c",
     "hal/aes_hal.c",
-    "hal/mcpwm_hal.c",
-    "hal/spi_slave_hal.c",
+    "hal/cpu_hal.c",
+    "hal/dac_hal.c",
+    "hal/esp32/adc_hal.c",
+    "hal/esp32/brownout_hal.c",
+    "hal/esp32/emac_hal.c",
+    "hal/esp32/gpio_hal_workaround.c",
+    "hal/esp32/interrupt_descriptor_table.c",
+    "hal/esp32/touch_sensor_hal.c",
+    "hal/gpio_hal.c",
     "hal/i2c_hal.c",
-    "hal/timer_hal.c",
     "hal/i2c_hal_iram.c",
     "hal/i2s_hal.c",
-    "hal/dac_hal.c",
-    "hal/adc_hal.c",
     "hal/interrupt_controller_hal.c",
-    "hal/sha_hal.c",
-    "hal/wdt_hal_iram.c",
-    "hal/spi_flash_hal_iram.c",
-    "hal/uart_hal_iram.c",
-    "hal/spi_flash_hal.c",
-    "hal/sigmadelta_hal.c",
-    "hal/uart_hal.c",
-    "hal/touch_sensor_hal.c",
-    "hal/soc_hal.c",
-    "hal/sdio_slave_hal.c",
-    "hal/spi_hal_iram.c",
-    "hal/ledc_hal_iram.c",
-    "hal/twai_hal_iram.c",
-    "hal/spi_hal.c",
     "hal/ledc_hal.c",
-    "hal/twai_hal.c",
+    "hal/ledc_hal_iram.c",
+    "hal/mcpwm_hal.c",
     "hal/mpu_hal.c",
-    "hal/gpio_hal.c",
-    "hal/cpu_hal.c",
     "hal/pcnt_hal.c",
-    "hal/esp32/gpio_hal_workaround.c",
-    "hal/esp32/brownout_hal.c",
-    "hal/esp32/adc_hal.c",
-    "hal/esp32/touch_sensor_hal.c",
-    "hal/esp32/emac_hal.c",
-    "hal/esp32/interrupt_descriptor_table.c",
+    "hal/rmt_hal.c",
+    "hal/rtc_io_hal.c",
+    "hal/sdio_slave_hal.c",
+    "hal/sha_hal.c",
+    "hal/sigmadelta_hal.c",
+    "hal/soc_hal.c",
+    "hal/spi_flash_hal.c",
+    "hal/spi_flash_hal_iram.c",
+    "hal/spi_hal.c",
+    "hal/spi_hal_iram.c",
+    "hal/spi_slave_hal.c",
+    "hal/spi_slave_hal_iram.c",
+    "hal/timer_hal.c",
+    "hal/touch_sensor_hal.c",
+    "hal/twai_hal.c",
+    "hal/twai_hal_iram.c",
+    "hal/uart_hal.c",
+    "hal/uart_hal_iram.c",
+    "hal/wdt_hal_iram.c",
   ]
-
 }
 
 # ============================================= libheap
@@ -2551,12 +3579,11 @@ StaticLibrary("esp_heap") {
 
   _ldflags = []
   sources = [
-    "heap/heap_caps_init.c",
     "heap/heap_caps.c",
-    "heap/multi_heap.c",
+    "heap/heap_caps_init.c",
     "heap/heap_tlsf.c",
+    "heap/multi_heap.c",
   ]
-
 }
 
 # ============================================= liblog
@@ -2653,10 +3680,9 @@ StaticLibrary("esp_log") {
   _ldflags = []
   sources = [
     "log/log.c",
-    "log/log_freertos.c",
     "log/log_buffers.c",
+    "log/log_freertos.c",
   ]
-
 }
 
 # ============================================= liblwip
@@ -2695,7 +3721,8 @@ StaticLibrary("esp_lwip") {
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
     "HAVE_CONFIG_H",
-#    "CONFIG_VFS_SUPPORT_IO=1",
+
+    #    "CONFIG_VFS_SUPPORT_IO=1",
   ]
 
   _includes = [
@@ -2771,68 +3798,67 @@ StaticLibrary("esp_lwip") {
   _ldflags = []
   sources = [
     "lwip/apps/dhcpserver/dhcpserver.c",
-    "lwip/apps/ping/ping.c",
     "lwip/apps/ping/esp_ping.c",
+    "lwip/apps/ping/ping.c",
     "lwip/apps/ping/ping_sock.c",
     "lwip/apps/sntp/sntp.c",
-    "lwip/lwip/src/api/netdb.c",
     "lwip/lwip/src/api/api_lib.c",
-    "lwip/lwip/src/api/netifapi.c",
-    "lwip/lwip/src/api/tcpip.c",
-    "lwip/lwip/src/api/netbuf.c",
-    "lwip/lwip/src/api/if_api.c",
-    "lwip/lwip/src/api/err.c",
     "lwip/lwip/src/api/api_msg.c",
+    "lwip/lwip/src/api/err.c",
+    "lwip/lwip/src/api/if_api.c",
+    "lwip/lwip/src/api/netbuf.c",
+    "lwip/lwip/src/api/netdb.c",
+    "lwip/lwip/src/api/netifapi.c",
     "lwip/lwip/src/api/sockets.c",
-    "lwip/lwip/src/apps/sntp/sntp.c",
+    "lwip/lwip/src/api/tcpip.c",
     "lwip/lwip/src/apps/netbiosns/netbiosns.c",
-    "lwip/lwip/src/core/mem.c",
+    "lwip/lwip/src/apps/sntp/sntp.c",
+    "lwip/lwip/src/core/altcp.c",
+    "lwip/lwip/src/core/altcp_alloc.c",
+    "lwip/lwip/src/core/altcp_tcp.c",
+    "lwip/lwip/src/core/def.c",
+    "lwip/lwip/src/core/dns.c",
     "lwip/lwip/src/core/inet_chksum.c",
     "lwip/lwip/src/core/init.c",
-    "lwip/lwip/src/core/memp.c",
-    "lwip/lwip/src/core/sys.c",
-    "lwip/lwip/src/core/tcp.c",
-    "lwip/lwip/src/core/timeouts.c",
-    "lwip/lwip/src/core/altcp_alloc.c",
-    "lwip/lwip/src/core/dns.c",
     "lwip/lwip/src/core/ip.c",
-    "lwip/lwip/src/core/raw.c",
-    "lwip/lwip/src/core/tcp_in.c",
-    "lwip/lwip/src/core/pbuf.c",
-    "lwip/lwip/src/core/netif.c",
-    "lwip/lwip/src/core/stats.c",
-    "lwip/lwip/src/core/altcp.c",
-    "lwip/lwip/src/core/def.c",
-    "lwip/lwip/src/core/altcp_tcp.c",
-    "lwip/lwip/src/core/udp.c",
-    "lwip/lwip/src/core/tcp_out.c",
-    "lwip/lwip/src/core/ipv4/ip4_napt.c",
-    "lwip/lwip/src/core/ipv4/ip4_frag.c",
+    "lwip/lwip/src/core/ipv4/autoip.c",
     "lwip/lwip/src/core/ipv4/dhcp.c",
     "lwip/lwip/src/core/ipv4/etharp.c",
-    "lwip/lwip/src/core/ipv4/ip4_addr.c",
+    "lwip/lwip/src/core/ipv4/icmp.c",
     "lwip/lwip/src/core/ipv4/igmp.c",
     "lwip/lwip/src/core/ipv4/ip4.c",
-    "lwip/lwip/src/core/ipv4/autoip.c",
-    "lwip/lwip/src/core/ipv4/icmp.c",
-    "lwip/lwip/src/netif/slipif.c",
-    "lwip/lwip/src/netif/ethernet.c",
+    "lwip/lwip/src/core/ipv4/ip4_addr.c",
+    "lwip/lwip/src/core/ipv4/ip4_frag.c",
+    "lwip/lwip/src/core/ipv4/ip4_napt.c",
+    "lwip/lwip/src/core/mem.c",
+    "lwip/lwip/src/core/memp.c",
+    "lwip/lwip/src/core/netif.c",
+    "lwip/lwip/src/core/pbuf.c",
+    "lwip/lwip/src/core/raw.c",
+    "lwip/lwip/src/core/stats.c",
+    "lwip/lwip/src/core/sys.c",
+    "lwip/lwip/src/core/tcp.c",
+    "lwip/lwip/src/core/tcp_in.c",
+    "lwip/lwip/src/core/tcp_out.c",
+    "lwip/lwip/src/core/timeouts.c",
+    "lwip/lwip/src/core/udp.c",
+    "lwip/lwip/src/netif/bridgeif.c",
     "lwip/lwip/src/netif/bridgeif_fdb.c",
-    "lwip/lwip/src/netif/zepif.c",
+    "lwip/lwip/src/netif/ethernet.c",
     "lwip/lwip/src/netif/lowpan6.c",
     "lwip/lwip/src/netif/lowpan6_ble.c",
     "lwip/lwip/src/netif/lowpan6_common.c",
-    "lwip/lwip/src/netif/bridgeif.c",
-    "lwip/port/esp32/no_vfs_syscalls.c",
+    "lwip/lwip/src/netif/slipif.c",
+    "lwip/lwip/src/netif/zepif.c",
+    "lwip/port/esp32/debug/lwip_debug.c",
     "lwip/port/esp32/freertos/sys_arch.c",
-    "lwip/port/esp32/hooks/tcp_isn_default.c",
     "lwip/port/esp32/hooks/lwip_default_hooks.c",
-    "lwip/port/esp32/netif/wlanif.c",
+    "lwip/port/esp32/hooks/tcp_isn_default.c",
     "lwip/port/esp32/netif/dhcp_state.c",
     "lwip/port/esp32/netif/ethernetif.c",
-    "lwip/port/esp32/debug/lwip_debug.c",
+    "lwip/port/esp32/netif/wlanif.c",
+    "lwip/port/esp32/no_vfs_syscalls.c",
   ]
-
 }
 
 # ============================================= libmain
@@ -2933,12 +3959,11 @@ StaticLibrary("esp_oh_driver_hal") {
 
   _ldflags = []
   sources = [
-    "oh_driver_hal/oled.c",
-    "oh_driver_hal/gpio.c",
     "oh_driver_hal/adc.c",
+    "oh_driver_hal/gpio.c",
+    "oh_driver_hal/oled.c",
     "oh_driver_hal/uart.c",
   ]
-
 }
 
 # ============================================= libmbedtls
@@ -3043,26 +4068,25 @@ StaticLibrary("esp_mbedtls") {
 
   _ldflags = []
   sources = [
-    "mbedtls/port/mbedtls_debug.c",
-    "mbedtls/port/esp_timing.c",
-    "mbedtls/port/esp_bignum.c",
-    "mbedtls/port/net_sockets.c",
-    "mbedtls/port/esp_hardware.c",
-    "mbedtls/port/esp_mem.c",
-    "mbedtls/port/esp32/bignum.c",
-    "mbedtls/port/sha/esp_sha.c",
-    "mbedtls/port/sha/parallel_engine/esp_sha1.c",
-    "mbedtls/port/sha/parallel_engine/esp_sha256.c",
-    "mbedtls/port/sha/parallel_engine/sha.c",
-    "mbedtls/port/sha/parallel_engine/esp_sha512.c",
+    "mbedtls/esp_crt_bundle/esp_crt_bundle.c",
+    "mbedtls/port/aes/block/esp_aes.c",
     "mbedtls/port/aes/esp_aes_common.c",
     "mbedtls/port/aes/esp_aes_gcm.c",
     "mbedtls/port/aes/esp_aes_xts.c",
-    "mbedtls/port/aes/block/esp_aes.c",
+    "mbedtls/port/esp32/bignum.c",
+    "mbedtls/port/esp_bignum.c",
+    "mbedtls/port/esp_hardware.c",
+    "mbedtls/port/esp_mem.c",
+    "mbedtls/port/esp_timing.c",
+    "mbedtls/port/mbedtls_debug.c",
     "mbedtls/port/md/esp_md.c",
-    "mbedtls/esp_crt_bundle/esp_crt_bundle.c",
+    "mbedtls/port/net_sockets.c",
+    "mbedtls/port/sha/esp_sha.c",
+    "mbedtls/port/sha/parallel_engine/esp_sha1.c",
+    "mbedtls/port/sha/parallel_engine/esp_sha256.c",
+    "mbedtls/port/sha/parallel_engine/esp_sha512.c",
+    "mbedtls/port/sha/parallel_engine/sha.c",
   ]
-
 }
 
 # ============================================= libnewlib
@@ -3160,20 +4184,19 @@ StaticLibrary("esp_newlib") {
 
   _ldflags = []
   sources = [
-    "newlib/heap.c",
-    "newlib/time.c",
-    "newlib/reent_init.c",
-    "newlib/termios.c",
-    "newlib/syscalls.c",
-    "newlib/poll.c",
-    "newlib/newlib_init.c",
     "newlib/abort.c",
+    "newlib/heap.c",
     "newlib/locks.c",
-    "newlib/random.c",
-    "newlib/pthread.c",
+    "newlib/newlib_init.c",
+    "newlib/poll.c",
     "newlib/port/esp_time_impl.c",
+    "newlib/pthread.c",
+    "newlib/random.c",
+    "newlib/reent_init.c",
+    "newlib/syscalls.c",
+    "newlib/termios.c",
+    "newlib/time.c",
   ]
-
 }
 
 # ============================================= libnvs_flash
@@ -3270,21 +4293,20 @@ StaticLibrary("esp_nvs_flash") {
 
   _ldflags = []
   sources = [
-    "nvs_flash/src/nvs_encrypted_partition.cpp",
-    "nvs_flash/src/nvs_cxx_api.cpp",
-    "nvs_flash/src/nvs_types.cpp",
-    "nvs_flash/src/nvs_partition.cpp",
-    "nvs_flash/src/nvs_page.cpp",
-    "nvs_flash/src/nvs_item_hash_list.cpp",
-    "nvs_flash/src/nvs_handle_locked.cpp",
-    "nvs_flash/src/nvs_pagemanager.cpp",
-    "nvs_flash/src/nvs_partition_lookup.cpp",
-    "nvs_flash/src/nvs_handle_simple.cpp",
-    "nvs_flash/src/nvs_storage.cpp",
     "nvs_flash/src/nvs_api.cpp",
+    "nvs_flash/src/nvs_cxx_api.cpp",
+    "nvs_flash/src/nvs_encrypted_partition.cpp",
+    "nvs_flash/src/nvs_handle_locked.cpp",
+    "nvs_flash/src/nvs_handle_simple.cpp",
+    "nvs_flash/src/nvs_item_hash_list.cpp",
+    "nvs_flash/src/nvs_page.cpp",
+    "nvs_flash/src/nvs_pagemanager.cpp",
+    "nvs_flash/src/nvs_partition.cpp",
+    "nvs_flash/src/nvs_partition_lookup.cpp",
     "nvs_flash/src/nvs_partition_manager.cpp",
+    "nvs_flash/src/nvs_storage.cpp",
+    "nvs_flash/src/nvs_types.cpp",
   ]
-
 }
 
 # ============================================= libpthread
@@ -3379,11 +4401,10 @@ StaticLibrary("esp_pthread") {
 
   _ldflags = []
   sources = [
-    "pthread/pthread_local_storage.c",
-    "pthread/pthread_cond_var.c",
     "pthread/pthread.c",
+    "pthread/pthread_cond_var.c",
+    "pthread/pthread_local_storage.c",
   ]
-
 }
 
 # ============================================= libsoc
@@ -3479,29 +4500,28 @@ StaticLibrary("esp_soc") {
 
   _ldflags = []
   sources = [
+    "soc/esp32/adc_periph.c",
+    "soc/esp32/dac_periph.c",
+    "soc/esp32/gpio_periph.c",
+    "soc/esp32/i2c_periph.c",
+    "soc/esp32/i2s_periph.c",
+    "soc/esp32/interrupts.c",
+    "soc/esp32/ledc_periph.c",
+    "soc/esp32/pcnt_periph.c",
+    "soc/esp32/rmt_periph.c",
+    "soc/esp32/rtc_io_periph.c",
+    "soc/esp32/sdio_slave_periph.c",
+    "soc/esp32/sdmmc_periph.c",
+    "soc/esp32/sigmadelta_periph.c",
+    "soc/esp32/soc_memory_layout.c",
+    "soc/esp32/spi_periph.c",
+    "soc/esp32/timer_periph.c",
+    "soc/esp32/touch_sensor_periph.c",
+    "soc/esp32/uart_periph.c",
     "soc/lldesc.c",
     "soc/memory_layout_utils.c",
     "soc/soc_include_legacy_warn.c",
-    "soc/esp32/dac_periph.c",
-    "soc/esp32/spi_periph.c",
-    "soc/esp32/soc_memory_layout.c",
-    "soc/esp32/rtc_io_periph.c",
-    "soc/esp32/interrupts.c",
-    "soc/esp32/i2c_periph.c",
-    "soc/esp32/adc_periph.c",
-    "soc/esp32/sdmmc_periph.c",
-    "soc/esp32/sigmadelta_periph.c",
-    "soc/esp32/uart_periph.c",
-    "soc/esp32/touch_sensor_periph.c",
-    "soc/esp32/sdio_slave_periph.c",
-    "soc/esp32/timer_periph.c",
-    "soc/esp32/ledc_periph.c",
-    "soc/esp32/i2s_periph.c",
-    "soc/esp32/gpio_periph.c",
-    "soc/esp32/rmt_periph.c",
-    "soc/esp32/pcnt_periph.c",
   ]
-
 }
 
 # ============================================= libspi_flash
@@ -3598,26 +4618,25 @@ StaticLibrary("esp_spi_flash") {
 
   _ldflags = []
   sources = [
+    "spi_flash/cache_utils.c",
+    "spi_flash/esp32/flash_ops_esp32.c",
+    "spi_flash/esp32/spi_flash_rom_patch.c",
+    "spi_flash/esp_flash_api.c",
+    "spi_flash/esp_flash_spi_init.c",
     "spi_flash/flash_mmap.c",
-    "spi_flash/spi_flash_chip_drivers.c",
+    "spi_flash/flash_ops.c",
+    "spi_flash/memspi_host_driver.c",
     "spi_flash/partition.c",
+    "spi_flash/spi_flash_chip_boya.c",
+    "spi_flash/spi_flash_chip_drivers.c",
+    "spi_flash/spi_flash_chip_gd.c",
+    "spi_flash/spi_flash_chip_generic.c",
+    "spi_flash/spi_flash_chip_issi.c",
+    "spi_flash/spi_flash_chip_mxic.c",
     "spi_flash/spi_flash_chip_winbond.c",
     "spi_flash/spi_flash_os_func_app.c",
     "spi_flash/spi_flash_os_func_noos.c",
-    "spi_flash/spi_flash_chip_generic.c",
-    "spi_flash/spi_flash_chip_gd.c",
-    "spi_flash/spi_flash_chip_boya.c",
-    "spi_flash/cache_utils.c",
-    "spi_flash/esp_flash_api.c",
-    "spi_flash/spi_flash_chip_issi.c",
-    "spi_flash/flash_ops.c",
-    "spi_flash/spi_flash_chip_mxic.c",
-    "spi_flash/memspi_host_driver.c",
-    "spi_flash/esp_flash_spi_init.c",
-    "spi_flash/esp32/flash_ops_esp32.c",
-    "spi_flash/esp32/spi_flash_rom_patch.c",
   ]
-
 }
 
 # ============================================= libtcpip_adapter
@@ -3711,10 +4730,7 @@ StaticLibrary("esp_tcpip_adapter") {
   ]
 
   _ldflags = []
-  sources = [
-    "tcpip_adapter/tcpip_adapter_compat.c",
-  ]
-
+  sources = [ "tcpip_adapter/tcpip_adapter_compat.c" ]
 }
 
 # ============================================= libwpa_supplicant
@@ -3840,75 +4856,74 @@ StaticLibrary("esp_wpa_supplicant") {
   _ldflags = []
   sources = [
     "wpa_supplicant/port/os_xtensa.c",
-    "wpa_supplicant/src/ap/wpa_auth_ie.c",
+    "wpa_supplicant/src/ap/ap_config.c",
     "wpa_supplicant/src/ap/ieee802_1x.c",
     "wpa_supplicant/src/ap/wpa_auth.c",
-    "wpa_supplicant/src/ap/ap_config.c",
-    "wpa_supplicant/src/common/sae.c",
+    "wpa_supplicant/src/ap/wpa_auth_ie.c",
     "wpa_supplicant/src/common/dpp.c",
+    "wpa_supplicant/src/common/sae.c",
     "wpa_supplicant/src/common/wpa_common.c",
-    "wpa_supplicant/src/crypto/aes-wrap.c",
-    "wpa_supplicant/src/crypto/aes-unwrap.c",
-    "wpa_supplicant/src/crypto/sha256-kdf.c",
-    "wpa_supplicant/src/crypto/des-internal.c",
-    "wpa_supplicant/src/crypto/aes-omac1.c",
-    "wpa_supplicant/src/crypto/sha1-tlsprf.c",
-    "wpa_supplicant/src/crypto/crypto_ops.c",
-    "wpa_supplicant/src/crypto/dh_group5.c",
-    "wpa_supplicant/src/crypto/aes-siv.c",
-    "wpa_supplicant/src/crypto/crypto_mbedtls.c",
-    "wpa_supplicant/src/crypto/sha1-prf.c",
-    "wpa_supplicant/src/crypto/md4-internal.c",
-    "wpa_supplicant/src/crypto/crypto_mbedtls-bignum.c",
-    "wpa_supplicant/src/crypto/dh_groups.c",
-    "wpa_supplicant/src/crypto/rc4.c",
     "wpa_supplicant/src/crypto/aes-ccm.c",
-    "wpa_supplicant/src/crypto/tls_mbedtls.c",
-    "wpa_supplicant/src/crypto/sha256-prf.c",
+    "wpa_supplicant/src/crypto/aes-omac1.c",
+    "wpa_supplicant/src/crypto/aes-siv.c",
+    "wpa_supplicant/src/crypto/aes-unwrap.c",
+    "wpa_supplicant/src/crypto/aes-wrap.c",
     "wpa_supplicant/src/crypto/ccmp.c",
-    "wpa_supplicant/src/crypto/sha384-tlsprf.c",
-    "wpa_supplicant/src/crypto/sha256-tlsprf.c",
-    "wpa_supplicant/src/crypto/ms_funcs.c",
+    "wpa_supplicant/src/crypto/crypto_mbedtls-bignum.c",
     "wpa_supplicant/src/crypto/crypto_mbedtls-ec.c",
+    "wpa_supplicant/src/crypto/crypto_mbedtls.c",
+    "wpa_supplicant/src/crypto/crypto_ops.c",
+    "wpa_supplicant/src/crypto/des-internal.c",
+    "wpa_supplicant/src/crypto/dh_group5.c",
+    "wpa_supplicant/src/crypto/dh_groups.c",
+    "wpa_supplicant/src/crypto/md4-internal.c",
+    "wpa_supplicant/src/crypto/ms_funcs.c",
+    "wpa_supplicant/src/crypto/rc4.c",
+    "wpa_supplicant/src/crypto/sha1-prf.c",
+    "wpa_supplicant/src/crypto/sha1-tlsprf.c",
+    "wpa_supplicant/src/crypto/sha256-kdf.c",
+    "wpa_supplicant/src/crypto/sha256-prf.c",
+    "wpa_supplicant/src/crypto/sha256-tlsprf.c",
+    "wpa_supplicant/src/crypto/sha384-tlsprf.c",
+    "wpa_supplicant/src/crypto/tls_mbedtls.c",
+    "wpa_supplicant/src/eap_peer/chap.c",
     "wpa_supplicant/src/eap_peer/eap.c",
     "wpa_supplicant/src/eap_peer/eap_common.c",
-    "wpa_supplicant/src/eap_peer/mschapv2.c",
+    "wpa_supplicant/src/eap_peer/eap_mschapv2.c",
+    "wpa_supplicant/src/eap_peer/eap_peap.c",
+    "wpa_supplicant/src/eap_peer/eap_peap_common.c",
     "wpa_supplicant/src/eap_peer/eap_tls.c",
     "wpa_supplicant/src/eap_peer/eap_tls_common.c",
     "wpa_supplicant/src/eap_peer/eap_ttls.c",
-    "wpa_supplicant/src/eap_peer/eap_peap.c",
-    "wpa_supplicant/src/eap_peer/eap_mschapv2.c",
-    "wpa_supplicant/src/eap_peer/chap.c",
-    "wpa_supplicant/src/eap_peer/eap_peap_common.c",
+    "wpa_supplicant/src/eap_peer/mschapv2.c",
+    "wpa_supplicant/src/esp_supplicant/esp_dpp.c",
+    "wpa_supplicant/src/esp_supplicant/esp_hostap.c",
+    "wpa_supplicant/src/esp_supplicant/esp_wpa2.c",
+    "wpa_supplicant/src/esp_supplicant/esp_wpa3.c",
+    "wpa_supplicant/src/esp_supplicant/esp_wpa_main.c",
+    "wpa_supplicant/src/esp_supplicant/esp_wpas_glue.c",
+    "wpa_supplicant/src/esp_supplicant/esp_wps.c",
     "wpa_supplicant/src/rsn_supp/pmksa_cache.c",
-    "wpa_supplicant/src/rsn_supp/wpa_ie.c",
     "wpa_supplicant/src/rsn_supp/wpa.c",
-    "wpa_supplicant/src/utils/wpa_debug.c",
-    "wpa_supplicant/src/utils/wpabuf.c",
-    "wpa_supplicant/src/utils/common.c",
-    "wpa_supplicant/src/utils/bitfield.c",
+    "wpa_supplicant/src/rsn_supp/wpa_ie.c",
     "wpa_supplicant/src/utils/base64.c",
+    "wpa_supplicant/src/utils/bitfield.c",
+    "wpa_supplicant/src/utils/common.c",
     "wpa_supplicant/src/utils/ext_password.c",
     "wpa_supplicant/src/utils/json.c",
     "wpa_supplicant/src/utils/uuid.c",
-    "wpa_supplicant/src/esp_supplicant/esp_wpas_glue.c",
-    "wpa_supplicant/src/esp_supplicant/esp_wps.c",
-    "wpa_supplicant/src/esp_supplicant/esp_hostap.c",
-    "wpa_supplicant/src/esp_supplicant/esp_wpa3.c",
-    "wpa_supplicant/src/esp_supplicant/esp_wpa2.c",
-    "wpa_supplicant/src/esp_supplicant/esp_dpp.c",
-    "wpa_supplicant/src/esp_supplicant/esp_wpa_main.c",
-    "wpa_supplicant/src/wps/wps_attr_process.c",
-    "wpa_supplicant/src/wps/wps_validate.c",
-    "wpa_supplicant/src/wps/wps_attr_parse.c",
-    "wpa_supplicant/src/wps/wps_dev_attr.c",
+    "wpa_supplicant/src/utils/wpa_debug.c",
+    "wpa_supplicant/src/utils/wpabuf.c",
     "wpa_supplicant/src/wps/wps.c",
-    "wpa_supplicant/src/wps/wps_common.c",
-    "wpa_supplicant/src/wps/wps_registrar.c",
     "wpa_supplicant/src/wps/wps_attr_build.c",
+    "wpa_supplicant/src/wps/wps_attr_parse.c",
+    "wpa_supplicant/src/wps/wps_attr_process.c",
+    "wpa_supplicant/src/wps/wps_common.c",
+    "wpa_supplicant/src/wps/wps_dev_attr.c",
     "wpa_supplicant/src/wps/wps_enrollee.c",
+    "wpa_supplicant/src/wps/wps_registrar.c",
+    "wpa_supplicant/src/wps/wps_validate.c",
   ]
-
 }
 
 # ============================================= libxtensa
@@ -4021,21 +5036,15 @@ StaticLibrary("esp_xtensa") {
 
   _ldflags = []
   sources = [
-    "xtensa/eri.c",
-    "xtensa/stdatomic.c",
-    "xtensa/xtensa_intr.c",
     "xtensa/debug_helpers.c",
-    "xtensa/expression_with_stack_xtensa.c",
-    "xtensa/trax.c",
-    "xtensa/esp32/trax_init.c",
     "xtensa/debug_helpers_asm.S",
+    "xtensa/eri.c",
+    "xtensa/esp32/trax_init.c",
+    "xtensa/expression_with_stack_xtensa.c",
     "xtensa/expression_with_stack_xtensa_asm.S",
+    "xtensa/stdatomic.c",
+    "xtensa/trax.c",
+    "xtensa/xtensa_intr.c",
     "xtensa/xtensa_intr_asm.S",
   ]
-}
-
-build_ext_component("copy_bin") {
-    exec_path = rebase_path(".", root_build_dir)
-    _output_dir = rebase_path("$root_out_dir")
-    command = "mkdir -p ${_output_dir}/bin && cp esp_bin/bootloader.bin ${_output_dir}/bin/ && cp esp_bin/partitions.bin ${_output_dir}/bin/"
 }
