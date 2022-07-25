@@ -1102,7 +1102,7 @@ executable("bootloader") {
     rebase_path("libs/esp32.rom.syscalls.ld"),
   ]
   libs = [
-    "xt_hal",
+    "esp32",
     "gcc",
     "stdc++",
     "gcov",
