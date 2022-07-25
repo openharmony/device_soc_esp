@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2022 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+    All configurations in this file will be merged to OAT-Default.xml, if you have any questions or concerns, please create issue in OpenHarmony/tools_oat and @jalenchen or chenyaxun.
+
+    licensefile:
+    1.If the project don't have "LICENSE" in root dir, please define all the license files in this project in , OAT will check license files according to this rule.
+
+    policylist:
+    1. policy: If the OAT-Default.xml policies do not meet your requirements, please add policies here.
+    2. policyitem: The fields type, name, path, desc is required, and the fields rule, group, filefilter is optional,the default value is:
+    <policyitem type="" name="" path="" desc="" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter"/>
+    3. policyitem type:
+        "compatibility" is used to check license compatibility in the specified path;
+        "license" is used to check source license header in the specified path;
+        "copyright" is used to check source copyright header in the specified path;
+        "import" is used to check source dependency in the specified path, such as import ... ,include ...
+        "filetype" is used to check file type in the specified path, supported file types: archive, binary
+        "filename" is used to check whether the specified file exists in the specified path(projectroot means the root dir of the project), supported file names: LICENSE, README, README.OpenSource
+    4. policyitem name: This field is used for define the license, copyright, "*" means match all, the "!" prefix means could not match this value. For example, "!GPL" means can not use GPL license.
+    5. policyitem path: This field is used for define the source file scope to apply this policyitem, the "!" prefix means exclude the files. For example, "!.*/lib/.*" means files in lib dir will be exclude while process this policyitem.
+    6. policyitem rule and group: These two fields are used together to merge policy results. "may" policyitems in the same group means any one in this group passed, the result will be passed.
+    7. policyitem filefilter: Used to bind filefilter which define filter rules.
+    7. policyitem desc: Used to describe the reason of this policy item, committers will check this while merging the code.
+    8. filefilter: Filter rules, the type filename is used to filter file name, the type filepath is used to filter file path.
+
+    Note:If the text contains special characters, please escape them according to the following rules:
+    " == &quot;
+    & == &amp;
+    ' == &apos;
+    < == &lt;
+    > == &gt;
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="copyright" name="Hunan OpenValley Digital Industry Development Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Hunan OpenValley Digital Industry Development."/>
+                <policyitem type="license" name="BSDStyleLicense" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="license" name="MIT" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="license" name="BSD-4-Clause" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="license" name="BSD-2-Clause" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="license" name="GPLStyleLicense" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="license" name="GPL-2.0-or-later" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="license" name="GPL-2.0+" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="license" name="BSD-3-Clause" path=".*"  desc="License Header Invalid"/>
+                <policyitem type="copyright" name="Espressif Systems (Shanghai) PTE LTD" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="The Android Open Source Project" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Google, Inc." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Amazon.com, Inc. or its affiliates.  All Rights Reserved." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Real Time Engineers Ltd." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Simon Goldschmidt" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Swedish Institute of Computer Science." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Dominik Spies &lt;kontakt@dspies.de&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Inico Technologies Ltd." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Open Interface North America, Inc. All rights reserved." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Axon Digital Design B.V., The Netherlands." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Erik Andersson" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Elias Oenal." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Paul Mackerras. All rights reserved." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Tensilica Inc." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Huawei Technologies Co., Ltd. All rights reserved." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Espressif Systems." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="by Tensilica Inc." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Cadence Design Systems, Inc." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Verisure Innovation AB" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Eric Rosenquist.  All rights reserved." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Cunningham, Garmin International, Inc.  &lt;joel.cunningham@garmin.com&gt;" path=".*"  desc="copyright Header Invalid"/>   
+                <policyitem type="copyright" name="CITEL Technologies Ltd." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Eric Rosenquist.  All rights reserved." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Joel Cunningham, Garmin International, Inc. &lt;joel.cunningham@garmin.com&gt;" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Carnegie Mellon University. All rights reserved." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Angus Gratton" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Fredrik Ahlberg, Angus Gratton, other contributors as noted." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Cozybit, Inc." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Cadence Design Systems Inc." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Elias Oenal and Dirk Ziegelmeier." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Tommi Komulainen.  All rights reserved." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Regents of the University of California." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Cadence Design Systems Inc." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Espressif Systems (Shanghai) Co., Ltd." path=".*"  desc="copyright Header Invalid"/>  
+                <policyitem type="copyright" name="Broadcom Corporation" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="The MINIX 3 Project." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Espressif Systems (Shanghai) CO LTD &amp; Cesanta Software Limited" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Dirk Ziegelmeier." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Dirk Ziegelmeier" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Espressif Systems (shanghai) PTE LTD" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Espressif Systems (Shanghai) Co. Ltd." path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Intel Corporation" path=".*"  desc="copyright Header Invalid"/> 
+                <policyitem type="copyright" name="Uwe Stuehler &lt;uwe@openbsd.org&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Leon Woestenberg &lt;leon.woestenberg@gmx.net&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Swedish Institute of Computer Science." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="by Sun Microsystems, Inc." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="by Marc Boucher, Services Informatiques (MBSI) inc." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Global Election Systems Inc." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="by Cognizant Pty Ltd." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Leon Woestenberg &lt;leon.woestenberg@axon.tv&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="RAD Game Tools and Valve Software" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Rich Geldreich and Tenacious Software LLC" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="The NetBSD Foundation, Inc." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Christophe Devine" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Paul Bakker &lt;polarssl_maintainer at polarssl dot org&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Thomas Moestl &lt;tmm@FreeBSD.org&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Benjamin Aigner" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Inico Technologies Ltd. , Author: Ivan Delamer &lt;delamer@inicotech.com&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Francis.Dupont@inria.fr, INRIA Rocquencourt," path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Francis.Dupont@inria.fr, GIE DYADE," path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Espressif Systems (Shanghai) PTE LTD" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Francesco Giancane &lt;francesco.giancane@accenture.com&gt;" path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="The Open Group&quot;." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="by Marc Boucher, Services Informatiques (MBSI) inc." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="by Global Election Systems Inc." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="The Australian National University." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Carnegie Mellon University." path=".*"  desc="copyright Header Invalid"/>
+                <policyitem type="copyright" name="Kungliga Tekniska Högskolan" path=".*"  desc="copyright Header Invalid"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+                <filteritem type="filepath" name="esp32/components/bt/sdkconfig.rename" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/libc_stubs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/chap_ms.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/soc/lldesc.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/Makefile.files" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_types.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/semphr.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/sdmmc/include/sdmmc_cmd.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/bluedroid_host/esp_blufi.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/driver/include/driver/sdmmc_defs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/lldesc.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/freertos/port/xtensa/include/freertos/xtensa_api.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/UPGRADING" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/ccp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/demand.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/task.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/controller/lib_esp32/README.rst" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/md5_hash.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/chap-md5.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/pppcrypt.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/eap.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/upap.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/newlib.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp_coredump.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/soc/soc_include_legacy_warn.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/driver/include/driver/sdmmc_types.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/miniz.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_system/port/include/intr.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/freertos/port/xtensa/include/freertos/xtensa_context.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/chap-new.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/pppdebug.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/ecp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/utils.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp_encr_nvs.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/flash_mock.cpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader_support/include/esp_flash_data_types.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/include/esp_blufi.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/queue.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/Kconfig.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/chap_ms.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/eui64.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/vj.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/flash_mock_util.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/stack/smp/include/aes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/rtc.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_common/Kconfig.spiram.common" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_wifi/lib/tools/ci/build_app.sh" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/flasher_stub/run_tests_with_stub.sh" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/eap.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/fsm.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/polarssl/arc4.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/pthread.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/lock.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_coredump.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/sdkconfig/sdkconfig.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/esp32/esp_random.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/log/log.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/nimble_host/esp_blufi.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/list.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/secure_boot.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/apps/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/ecp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/ipcp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/polarssl/des.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_encr_nvs.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/log/include/esp_log.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/sha.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/eui64.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/upap.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/ipv6cp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/polarssl/md4.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/esp_crt_bundle/cmn_crt_authorities.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/Makefile.files" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/osi.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/efuse/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/spi_flash.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_event/include/esp_event_loop.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/etharp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/fsm.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/vj.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/lcp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/polarssl/md5.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/app_update/esp_ota_eps.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/vfs/README.rst" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/osi/list.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/btc/core/btc_sec.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/stack/smp/aes.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/aes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/tbconsole.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_wifi/lib/fix_printf.sh" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/ipcp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/polarssl/arc4.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/magic.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/polarssl/sha1.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/nvs_flash/include/nvs_handle.hpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/esp_timer/include/esp_timer.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/lock.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/vfs/include/esp_vfs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/bigint.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/tjpgd.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/ipv6cp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/polarssl/des.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/mppe.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/include/sys/lock.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/vfs/component.mk" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader_support/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/hci/hci_audio.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/efuse/esp32/esp_efuse_table.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/cache.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/uart.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/lcp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/polarssl/md4.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/PPPD_FOLLOWUP" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/multilink.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/time.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/vfs/sdkconfig.rename" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/esp_clk.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/crc.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_common/src/esp_err_to_name.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/setup.py" desc=""/>
+                <filteritem type="filepath" name="esp32/components/freertos/include/freertos/stdint.readme" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/apps/http/makefsdata/makefsdata" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/magic.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/polarssl/md5.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/auth.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/ppp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/bignum_impl.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/COPYING.NEWLIB" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/mock/mock_config.yaml" desc=""/>
+                <filteritem type="filepath" name="esp32/components/app_update/Kconfig.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/esp_himem.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/efuse.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_wifi/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/CHANGELOG" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/mppe.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/polarssl/sha1.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/ccp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/Makefile.old" desc=""/>
+                <filteritem type="filepath" name="esp32/components/app_update/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/component.mk" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/ets_sys.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/ld/esp32_fragments.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/ppp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/chap-md5.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/pppcrypt.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.cpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/FreeRTOS.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/sdkconfig/sdkconfig.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/linker.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/esp_spiram.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/gpio.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_timer/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/FEATURES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/ppp_impl.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/chap-new.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/esp32-spiram-rom-functions-c.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.hpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_host.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/projdefs.h" desc=""/>
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+                <filteritem type="filepath" name="EULA" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/uECC.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/sdkconfig.rename" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/libc_stubs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/core/dns.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/ppp_opts.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/pppol2tp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/esp_timing.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/md5_alt.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/dma/sha.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/soc/lldesc.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/Makefile.files" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_types.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/semphr.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/sdmmc/include/sdmmc_cmd.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/include/utils/wpabuf.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/wpa_auth.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/rrm.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-internal-enc.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/crypto_internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/md5.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha256-tlsprf.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_config.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/bitfield.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/uECC_vli.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/bluedroid_host/esp_blufi.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/lldesc.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/freertos/port/xtensa/include/freertos/xtensa_api.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/UPGRADING" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/pppapi.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/pppos.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/task.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/wpa_auth.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/sae.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/md5_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha256.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_defs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/pkcs1.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/bitfield.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/md5_hash.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/heap/heap_tlsf.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/sha1_alt.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/newlib.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp_coredump.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/soc/soc_include_legacy_warn.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/wpa_auth_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/sae.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-omac1.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/ms_funcs.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha256.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/pkcs1.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_cred.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/miniz.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_system/port/include/intr.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/freertos/port/xtensa/include/freertos/xtensa_context.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/heap/heap_tlsf.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/aes/esp_aes_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/sha256_alt.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp_encr_nvs.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/flash_mock.cpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/port/os_xtensa.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/wpa_auth_ie.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/scan.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/ms_funcs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha256_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_methods.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/pkcs5.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_cred.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_attr_build.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader_support/include/esp_flash_data_types.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/include/esp_blufi.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/queue.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_rom/include/esp32/rom/md5_hash.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/Kconfig.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/heap/heap_tlsf_block_functions.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/apps/netbiosns.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/apps/tftp_opts.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/aes/esp_aes_gcm.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/sha512_alt.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/parallel_engine/esp_sha1.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/flash_mock_util.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/wpa_auth_ie.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/scan.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-unwrap.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/random.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha384-tlsprf.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_mschapv2.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/rsn_supp/pmksa_cache.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/pkcs5.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_record.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/ext_password.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_attr_parse.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/uECC_verify_antifault.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/stack/smp/include/aes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/rtc.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_common/Kconfig.spiram.common" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_wifi/lib/tools/ci/build_app.sh" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/flasher_stub/run_tests_with_stub.sh" desc=""/>
+                <filteritem type="filepath" name="esp32/components/heap/heap_tlsf_config.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/compat/posix/netdb.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/apps/netbiosns_opts.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/apps/tftp_server.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/prot/dns.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/pppol2tp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/aes/esp_aes_xts.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/aes/esp_aes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/parallel_engine/esp_sha256.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/pthread.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/lock.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_coredump.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/sdkconfig/sdkconfig.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/esp32/esp_random.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/log/log.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/wnm_sta.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-wrap.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/rc4.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha384.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_peap.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/rsn_supp/pmksa_cache.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/pkcs8.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_record.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/ext_password.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_attr_parse.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/uECC_verify_antifault.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/nimble_host/esp_blufi.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/list.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/secure_boot.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/compat/posix/arpa/inet.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/netdb.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/apps/FILES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/ppp/pppos.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/aes/block/esp_aes.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/aes/esp_aes_gcm.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/parallel_engine/esp_sha512.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_encr_nvs.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/log/include/esp_log.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/port/include/os.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/bss.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/wnm_sta.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/des-internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha1-internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_peap_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/rsn_supp/wpa.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/pkcs8.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_server.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/ext_password_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_attr_process.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_arm.inc" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/sha.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/apps/netbiosns/netbiosns.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/esp_crt_bundle/cmn_crt_authorities.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/esp32/bignum.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/aes/esp_aes_internal.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/parallel_engine/sha.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/Makefile.files" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/bss.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/wpa_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/des_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha1-pbkdf2.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_peap_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/rsn_supp/wpa.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/rsa.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_server.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/includes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_arm_mult_square.inc" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/osi.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/efuse/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/spi_flash.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_event/include/esp_event_loop.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/api/netdb.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/netifapi.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/etharp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/aes/dma/esp_aes.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/app_update/esp_ota_eps.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/vfs/README.rst" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/defs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/wpa_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/dh_group5.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha1-prf.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/drivers/driver.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_tls.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/rsn_supp/wpa_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/rsa.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_server_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/json.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_defs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_arm_mult_square_umaal.inc" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/common/osi/list.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/btc/core/btc_sec.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/stack/smp/aes.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/aes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/tbconsole.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_wifi/lib/fix_printf.sh" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/api/netifapi.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/apps/tftp/tftp_server.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/esp32/aes.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/nvs_flash/include/nvs_handle.hpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/esp_timer/include/esp_timer.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/lock.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/vfs/include/esp_vfs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/dpp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/wpa_ctrl.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes_wrap.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/dh_group5.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha1-tlsprf.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_tls.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/rsn_supp/wpa_ie.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tls.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_server_read.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/json.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_dev_attr.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_avr.inc" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/bigint.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/tjpgd.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/compat/posix/sys/socket.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/lwip/dns.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/port/esp32/include/netdb.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/include/sys/lock.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/vfs/component.mk" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/ap_config.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/dpp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/wpa_supplicant_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/ccmp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/dh_groups.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha1.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/chap.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_tls_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/rsn_supp/wpa_ie.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tls_internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_server_write.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/list.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_dev_attr.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_avr_mult_square.inc" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader_support/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/hci/hci_audio.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/efuse/esp32/esp_efuse_table.csv" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/cache.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/uart.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/apps/ping/ping.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/PPPD_FOLLOWUP" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/port/esp32/include/arch/cc.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/port/esp32/include/sys/socket.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/aes_alt.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/dma/esp_sha1.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/time.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/vfs/sdkconfig.rename" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/ap_config.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/eapol_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/ccmp.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/dh_groups.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha1.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/chap.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_tls_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_client.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/x509v3.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/state_machine.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_enrollee.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/curve-specific.inc" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/esp_clk.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/crc.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_common/src/esp_err_to_name.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/setup.py" desc=""/>
+                <filteritem type="filepath" name="esp32/components/freertos/include/freertos/stdint.readme" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/apps/http/makefsdata/makefsdata" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/port/esp32/include/arch/perf.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/bignum_impl.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/dma/esp_sha256.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/COPYING.NEWLIB" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/mock/mock_config.yaml" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/hostapd.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/ieee802_11_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-cbc.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/crypto.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha1_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_tlv_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/asn1.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_client.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/x509v3.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/uuid.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/app_update/Kconfig.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/platform-specific.inc" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/esp_himem.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/efuse.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_wifi/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/compat/stdc/errno.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/pppapi.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/esp_bignum.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/sha/dma/esp_sha512.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/Makefile.old" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/ieee802_1x.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/ieee802_11_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-ccm.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/crypto_internal-cipher.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/md4-internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha256-internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_ttls.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/asn1.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_client_i.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/uuid.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_registrar.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/app_update/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/types.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/component.mk" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/ets_sys.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/ld/esp32_fragments.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/apps/http/makefsdata/tinydir.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.cpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/FreeRTOS.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/sdkconfig/sdkconfig.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/ieee802_1x.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-ctr.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/crypto_internal-modexp.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/md5-internal.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha256-kdf.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_common.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_ttls.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/bignum.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_client_read.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/base64.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/wpa_debug.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/wps/wps_validate.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/uECC.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/bt/linker.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/esp_spiram.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp32/include/rom/gpio.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_timer/Makefile.projbuild" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/FEATURES" desc=""/>
+                <filteritem type="filepath" name="esp32/components/lwip/lwip/src/include/netif/slipif.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/gcm_alt.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/mbedtls/port/include/mbedtls/esp_config.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/esp32-spiram-rom-functions-c.lf" desc=""/>
+                <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.hpp" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_host.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/projdefs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/include/utils/wpa_debug.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/ap/sta_info.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/common/rrm.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/aes-internal-dec.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/crypto_internal-rsa.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/md5.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/crypto/sha256-prf.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/eap_peer/eap_common.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/bignum.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/tls/tlsv1_client_write.c" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/base64.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/wpa_supplicant/src/utils/wpabuf.c" desc=""/>
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binaryFile" >
+                <filteritem type="filename" name="*.png" desc="all so file have check "/>
+                <filteritem type="filepath" name="esp32/components/libs/libbtdm_app.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libcore.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libnet80211.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libphy.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libpp.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/librtc.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libxt_hal.a" desc=""/>
+                <filteritem type="filepath" name="esp32_wrover_ie/pack_tools/bootloader.bin" desc=""/>
+                <filteritem type="filepath" name="esp32_wrover_ie/pack_tools/partition-table.bin" desc=""/>
+            </filefilter>
+        </filefilterlist>
+    </oatconfig>
+</configuration>
