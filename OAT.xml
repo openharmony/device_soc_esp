@@ -673,8 +673,6 @@
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binaryFile" >
                 <filteritem type="filename" name="*.png" desc="all so file have check "/>
                 <filteritem type="filepath" name="esp32/components/libs/libesp32.a" desc=""/>
-                <filteritem type="filepath" name="esp32_wrover_ie/pack_tools/bootloader.bin" desc=""/>
-                <filteritem type="filepath" name="esp32_wrover_ie/pack_tools/partition-table.bin" desc=""/>
             </filefilter>
         </filefilterlist>
     </oatconfig>
