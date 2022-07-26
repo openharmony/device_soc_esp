@@ -6,14 +6,12 @@
 
 | SOC型号       | 对应开发板                                                   | 目录名称        |
 | ------------- | ------------------------------------------------------------ | --------------- |
-| ESP32U4WDH    | [NiobeU4](https://gitee.com/openharmony-sig/device_board_openvalley/blob/master/niobeu4/README_zh.md) | esp32           |
-| ESP32-D0WD-V3 | [ESP32_WROVER_IE](esp32_wrover_ie/readme_zh.md)              | esp32_wrover_ie |
+| ESP32U4WDH    | [NiobeU4](https://gitee.com/openharmony-sig/device_board_openvalley/blob/master/niobeu4/README_zh.md) | esp32 |
 
 ## 目录框架
 
 ```
 device/soc/esp
-├── esp32_wrover_ie                       # ESP芯片平台目录
 ├── esp32                                 # ESP芯片平台目录
 ├── Kconfig.liteos_m.defconfig            # Kconfig配置
 ├── Kconfig.liteos_m.series
@@ -25,7 +23,3 @@ device/soc/esp
 [device_board_openvalley](https://gitee.com/openharmony-sig/device_board_openvalley.git)
 
 [vendor_openvalley](https://gitee.com/openharmony-sig/vendor_openvalley.git)
-
-[device_board_espressif](https://gitee.com/openharmony-sig/device_board_espressif)
-
-[vendor_espressif](https://gitee.com/openharmony-sig/vendor_espressif)
