@@ -40,7 +40,6 @@ module_group(module_name) {
     ":esp_heap",
     ":esp_log",
     ":esp_lwip",
-    ":esp_mbedtls",
     ":esp_newlib",
     ":esp_nvs_flash",
     ":esp_oh_driver_hal",
@@ -89,11 +88,7 @@ template("StaticLibrary") {
                      "//kernel/liteos_m/components/power",
                      "//kernel/liteos_m",
                      "$device_path/include",
-                     "mbedtls/port/include",
-
-                     # "mbedtls/mbedtls/include",
                      "//third_party/mbedtls/include",
-                     "mbedtls/esp_crt_bundle/include",
                    ] + invoker._includes
     output_prefix_override = false
     no_default_deps = true
@@ -164,7 +159,6 @@ StaticLibrary("boot_esp_hw_support") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -247,7 +241,6 @@ StaticLibrary("boot_bootloader_support") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -345,7 +338,6 @@ StaticLibrary("boot_log") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -421,7 +413,6 @@ StaticLibrary("boot_spi_flash") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -495,7 +486,6 @@ StaticLibrary("boot_micro-ecc") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -568,7 +558,6 @@ StaticLibrary("boot_soc") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -663,7 +652,6 @@ StaticLibrary("boot_main") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -735,7 +723,6 @@ StaticLibrary("boot_efuse") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -823,7 +810,6 @@ StaticLibrary("boot_esp_rom") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -901,7 +887,6 @@ StaticLibrary("boot_hal") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -1017,7 +1002,6 @@ StaticLibrary("boot_xtensa") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -3999,7 +3983,6 @@ StaticLibrary("esp_mbedtls") {
     "NDEBUG",
     "_GNU_SOURCE",
     "UNITY_INCLUDE_CONFIG_H",
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
     "HAVE_CONFIG_H",
   ]
 
@@ -4775,7 +4758,6 @@ StaticLibrary("esp_wpa_supplicant") {
     "CONFIG_WPS2",
     "CONFIG_WPS_PIN",
     "USE_WPS_TASK",
-    "ESPRESSIF_USE",
     "ESP32_WORKAROUND",
     "CONFIG_ECC",
     "CONFIG_WNM",
