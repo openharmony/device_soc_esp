@@ -45,7 +45,7 @@
 #include "md5.h"
 #include "aes_wrap.h"
 #include "crypto.h"
-#include "mbedtls/esp_config.h"
+// #include "mbedtls/esp_config.h"
 
 static int digest_vector(mbedtls_md_type_t md_type, size_t num_elem,
 			 const u8 *addr[], const size_t *len, u8 *mac)
@@ -774,7 +774,7 @@ cleanup:
 }
 #endif
 
-#ifdef MBEDTLS_ARC4_C
+#if 0 // def MBEDTLS_ARC4_C
 int rc4_skip(const u8 *key, size_t keylen, size_t skip,
              u8 *data, size_t data_len)
 {
