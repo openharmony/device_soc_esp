@@ -19,7 +19,6 @@
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
 #include "esp_log.h"
-#include "esp_pm.h"
 #include "soc/rtc.h"
 #include "driver/rtc_io.h"
 #include "sys/lock.h"

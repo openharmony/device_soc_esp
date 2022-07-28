@@ -16,11 +16,8 @@
 #include <esp_wifi.h>
 #include "esp_log.h"
 #include "esp_private/wifi.h"
-#include "esp_pm.h"
 #include "esp_sleep.h"
-#include "esp_private/pm_impl.h"
 #include "soc/rtc.h"
-#include "esp_wpa.h"
 #include "esp_netif.h"
 #include "tcpip_adapter_compatible/tcpip_adapter_compat.h"
 #include "driver/adc.h"
@@ -39,6 +36,8 @@
 ESP_EVENT_DEFINE_BASE(WIFI_EVENT);
 
 extern uint8_t esp_wifi_get_user_init_flag_internal(void);
+extern esp_err_t esp_supplicant_init(void);
+extern esp_err_t esp_supplicant_deinit(void);
 #ifdef CONFIG_PM_ENABLE
 static esp_pm_lock_handle_t s_wifi_modem_sleep_lock;
 #endif

@@ -36,7 +36,6 @@
 #include "esp_bt.h"
 #include "esp_err.h"
 #include "esp_log.h"
-#include "esp_pm.h"
 #include "driver/periph_ctrl.h"
 #include "soc/rtc.h"
 #include "soc/soc_memory_layout.h"
