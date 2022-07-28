@@ -17,7 +17,7 @@ module_name = "components"
 module_group(module_name) {
   modules = []
   deps = [
-    ":boot_bin",
+    ":esp_bootloader",
     ":esp_app_update",
     ":esp_bootloader_support",
     ":esp_bt",
@@ -97,30 +97,6 @@ template("StaticLibrary") {
 
 # 导入SDK配置
 import("sdkconfig.gni")
-
-## bootloader.elf转bootloader.bin
-action("boot_bin") {
-  script = rebase_path("esptool_py/esptool/esptool.py")
-  _output_file = "$root_out_dir/bin/bootloader.bin"
-  _input_file = "$root_out_dir/bin/bootloader.elf"
-  outputs = [ _output_file ]
-  inputs = [ _input_file ]
-  args = [
-    "--chip",
-    CONFIG_IDF_TARGET,
-    "elf2image",
-    "--flash_mode",
-    CONFIG_ESPTOOLPY_FLASHMODE,
-    "--flash_freq",
-    CONFIG_ESPTOOLPY_FLASHFREQ,
-    "--flash_size",
-    CONFIG_ESPTOOLPY_FLASHSIZE,
-    "-o",
-    rebase_path(_output_file),
-    rebase_path(_input_file),
-  ]
-  deps = [ ":bootloader" ]
-}
 
 # ============================================= libesp_hw_support
 StaticLibrary("boot_esp_hw_support") {
@@ -1046,7 +1022,7 @@ StaticLibrary("boot_xtensa") {
   ]
 }
 
-executable("bootloader") {
+executable("esp_bootloader") {
   no_default_deps = true
   cflags = []
   output_name = "bootloader.elf"
