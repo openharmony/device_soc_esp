@@ -43,7 +43,6 @@
 #include "phy_init_data.h"
 #include "driver/periph_ctrl.h"
 #include "nvs.h"
-#include "os.h"
 #include "esp_smartconfig.h"
 #include "esp_coexist_internal.h"
 #include "esp_coexist_adapter.h"
@@ -470,7 +469,17 @@ static void wifi_clock_disable_wrapper(void)
 
 static int get_time_wrapper(void *t)
 {
-    return os_get_time(t);
+    struct timeval tv;
+    int ret = gettimeofday(&tv, NULL);
+    *((time_t *)t) = (time_t) tv.tv_sec;
+    *((suseconds_t *)((char *)t + sizeof(time_t))) = (suseconds_t)tv.tv_usec;
+    return ret;
+}
+
+static int os_get_random(unsigned char *buf, size_t len)
+{
+    esp_fill_random(buf, len);
+    return 0;
 }
 
 static void * IRAM_ATTR malloc_internal_wrapper(size_t size)
@@ -745,7 +754,7 @@ wifi_osi_funcs_t g_wifi_osi_funcs = {
     ._nvs_erase_key = nvs_erase_key,
     ._get_random = os_get_random,
     ._get_time = get_time_wrapper,
-    ._random = os_random,
+    ._random = esp_random,
     ._log_write = esp_log_write,
     ._log_writev = esp_log_writev,
     ._log_timestamp = esp_log_timestamp,
