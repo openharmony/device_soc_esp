@@ -974,7 +974,7 @@
 #define ESP_IP4_ROUTE                   1
 #define ESP_AUTO_IP                     1
 #define ESP_PBUF                        1
-#define ESP_PPP                         1
+// #define ESP_PPP                         1
 #define ESP_IPV6                        LWIP_IPV6
 #define ESP_SOCKET                      1
 #define ESP_LWIP_SELECT                 1

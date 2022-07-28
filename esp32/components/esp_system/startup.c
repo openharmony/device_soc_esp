@@ -49,8 +49,6 @@
 //#include "esp_core_dump.h"
 // #include "esp_app_trace.h"
 #include "esp_private/dbg_stubs.h"
-#include "esp_pm.h"
-#include "esp_private/pm_impl.h"
 #include "esp_pthread.h"
 #include "esp_private/usb_console.h"
 

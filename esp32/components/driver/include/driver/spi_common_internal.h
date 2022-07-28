@@ -20,7 +20,6 @@
 #include "driver/spi_common.h"
 #include "freertos/FreeRTOS.h"
 #include "hal/spi_types.h"
-#include "esp_pm.h"
 
 #ifdef __cplusplus
 extern "C"

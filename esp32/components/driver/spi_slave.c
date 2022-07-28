@@ -18,7 +18,6 @@
 #include "esp_intr_alloc.h"
 #include "esp_log.h"
 #include "esp_err.h"
-#include "esp_pm.h"
 #include "esp_heap_caps.h"
 #include "esp_rom_gpio.h"
 #include "esp_rom_sys.h"

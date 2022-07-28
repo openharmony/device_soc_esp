@@ -16,9 +16,7 @@
 #include <esp_wifi.h>
 #include "esp_log.h"
 #include "esp_private/wifi.h"
-#include "esp_pm.h"
 #include "esp_sleep.h"
-#include "esp_private/pm_impl.h"
 #include "soc/rtc.h"
 #include "esp_netif.h"
 #include "tcpip_adapter_compatible/tcpip_adapter_compat.h"
