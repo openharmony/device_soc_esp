@@ -6,7 +6,7 @@
 
 | SOC型号       | 对应开发板                                                   | 目录名称        |
 | ------------- | ------------------------------------------------------------ | --------------- |
-| ESP32U4WDH    | [NiobeU4](https://gitee.com/openharmony-sig/device_board_openvalley/blob/master/niobeu4/README_zh.md) | esp32 |
+| ESP32U4WDH    | [NiobeU4](https://gitee.com/openharmony-sig/device_board_openvalley/blob/master/niobeu4/README_zh.md) | [esp32](esp32/README_zh.md) |
 
 ## 目录框架
 

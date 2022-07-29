@@ -672,7 +672,13 @@
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binaryFile" >
                 <filteritem type="filename" name="*.png" desc="all so file have check "/>
-                <filteritem type="filepath" name="esp32/components/libs/libesp32.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libbtdm_app.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libcore.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libnet80211.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libphy.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libpp.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/librtc.a" desc=""/>
+                <filteritem type="filepath" name="esp32/components/libs/libxt_hal.a" desc=""/>
             </filefilter>
         </filefilterlist>
     </oatconfig>

@@ -317,8 +317,8 @@ static void do_core_init(void)
     esp_dbg_stubs_init();
 #endif
 
-    err = esp_pthread_init();
-    assert(err == ESP_OK && "Failed to init pthread module!");
+    // err = esp_pthread_init();
+    // assert(err == ESP_OK && "Failed to init pthread module!");
 
     spi_flash_init();
     /* init default OS-aware flash access critical section */
