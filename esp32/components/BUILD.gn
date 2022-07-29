@@ -1058,7 +1058,7 @@ executable("esp_bootloader") {
     rebase_path("libs/esp32.rom.syscalls.ld"),
   ]
   libs = [
-    "esp32",
+    "xt_hal",
     "gcc",
     "stdc++",
     "gcov",
