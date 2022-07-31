@@ -16,9 +16,9 @@
 #include <string.h>
 #include "esp_log.h"
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "freertos/timers.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/timers.h"
 #include "driver/rtc_io.h"
 #include "driver/dac.h"
 #include "soc/dac_periph.h"

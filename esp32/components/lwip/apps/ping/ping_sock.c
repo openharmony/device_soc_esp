@@ -14,8 +14,8 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 #include "lwip/opt.h"
 #include "lwip/init.h"
 #include "lwip/mem.h"

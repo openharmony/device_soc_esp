@@ -15,7 +15,7 @@
 #ifndef _DRIVER_SDIO_SLAVE_H_
 #define _DRIVER_SDIO_SLAVE_H_
 
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "esp_err.h"
 #include "sys/queue.h"
 

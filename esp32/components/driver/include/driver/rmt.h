@@ -23,8 +23,8 @@ extern "C" {
 #include "esp_err.h"
 #include "soc/soc_caps.h"
 #include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/ringbuf.h"
+#include "esp_osal/esp_osal.h"
+#include "ringbuf.h"
 #include "soc/rmt_struct.h"
 #include "hal/rmt_types.h"
 

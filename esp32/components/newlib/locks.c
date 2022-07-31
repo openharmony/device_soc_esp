@@ -17,10 +17,10 @@
 #include <sys/reent.h>
 #include "esp_attr.h"
 #include "soc/cpu.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "freertos/task.h"
-#include "freertos/portable.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/task.h"
+#include "esp_osal/portable.h"
 #include "esp_rom_caps.h"
 
 /* Notes on our newlib lock implementation:

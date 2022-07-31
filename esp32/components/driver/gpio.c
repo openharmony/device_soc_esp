@@ -14,7 +14,7 @@
 
 #include <esp_types.h>
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "driver/gpio.h"
 #include "driver/rtc_io.h"
 #include "soc/soc.h"

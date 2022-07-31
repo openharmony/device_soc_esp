@@ -23,8 +23,8 @@
 #include <sys/lock.h>
 #include <sys/param.h>
 #include <dirent.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
 #include "esp_vfs.h"
 #include "sdkconfig.h"
 

@@ -30,7 +30,7 @@
 #include "soc/rtc.h"
 #include "hal/wdt_hal.h"
 #include "hal/cpu_hal.h"
-#include "freertos/xtensa_api.h"
+#include "esp_osal/xtensa_api.h"
 #include "soc/soc_memory_layout.h"
 
 #include "esp32/cache_err_int.h"

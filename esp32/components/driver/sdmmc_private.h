@@ -17,8 +17,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/queue.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/queue.h"
 #include "soc/sdmmc_periph.h"
 
 typedef struct {

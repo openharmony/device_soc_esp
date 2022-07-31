@@ -17,9 +17,9 @@
 #include <string.h>
 #include <stdio.h>
 
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-#include <freertos/semphr.h>
+#include <esp_osal/esp_osal.h>
+#include <esp_osal/task.h>
+#include <esp_osal/semphr.h>
 #if CONFIG_IDF_TARGET_ESP32
 #include "soc/dport_reg.h"
 #include <esp32/rom/spi_flash.h>

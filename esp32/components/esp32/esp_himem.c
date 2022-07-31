@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 #include "esp32/spiram.h"
 #include "esp32/rom/cache.h"
 #include "sdkconfig.h"

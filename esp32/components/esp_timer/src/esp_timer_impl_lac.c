@@ -26,7 +26,7 @@
 #include "soc/soc.h"
 #include "soc/timer_group_reg.h"
 #include "soc/rtc.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 
 /**
  * @file esp_timer_lac.c

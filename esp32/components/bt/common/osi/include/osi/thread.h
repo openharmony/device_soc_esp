@@ -15,10 +15,10 @@
 #ifndef __THREAD_H__
 #define __THREAD_H__
 
-#include "freertos/FreeRTOSConfig.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/queue.h"
-#include "freertos/task.h"
+#include "esp_osal/osal_config.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/queue.h"
+#include "esp_osal/task.h"
 #include "osi/semaphore.h"
 #include "esp_task.h"
 #include "bt_common.h"

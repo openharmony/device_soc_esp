@@ -17,8 +17,6 @@ if (ohos_kernel_type == "liteos_m") {
   module_group(module_name) {
     if( defined(LOSCFG_SOC_ESP32_U4WDH) ) {
       modules = [ "esp32" ]
-    } else {
-      modules = [ "esp32_wrover_ie" ]
     }
   }
 }

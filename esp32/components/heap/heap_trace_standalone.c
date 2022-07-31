@@ -19,8 +19,8 @@
 #undef HEAP_TRACE_SRCFILE
 
 #include "esp_attr.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 
 
 #define STACK_DEPTH CONFIG_HEAP_TRACING_STACK_DEPTH

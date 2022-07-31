@@ -18,7 +18,7 @@
 
 #include <esp_intr_alloc.h>
 #include "driver/spi_common.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "hal/spi_types.h"
 
 #ifdef __cplusplus

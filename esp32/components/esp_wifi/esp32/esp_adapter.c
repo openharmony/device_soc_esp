@@ -19,14 +19,14 @@
 #include <assert.h>
 #include <pthread.h>
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-#include "freertos/semphr.h"
-#include "freertos/event_groups.h"
-#include "freertos/xtensa_api.h"
-#include "freertos/portmacro.h"
-#include "freertos/xtensa_api.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
+#include "esp_osal/queue.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/event_groups.h"
+#include "esp_osal/xtensa_api.h"
+#include "esp_osal/portmacro.h"
+#include "esp_osal/xtensa_api.h"
 #include "esp_types.h"
 #include "esp_system.h"
 #include "esp_task.h"

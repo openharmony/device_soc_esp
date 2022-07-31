@@ -25,7 +25,7 @@
 #define BTA_DM_INT_H
 
 #include "common/bt_target.h"
-#include "freertos/semphr.h"
+#include "esp_osal/semphr.h"
 #if (BLE_INCLUDED == 1 && (defined BTA_GATT_INCLUDED) && (BTA_GATT_INCLUDED == 1))
 #include "bta/bta_gatt_api.h"
 #endif

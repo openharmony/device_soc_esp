@@ -1,4 +1,4 @@
-// Copyright 2020 Espressif Systems (Shanghai) Co. Ltd.
+// Copyright 2019 Espressif Systems (Shanghai) PTE LTD
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 // limitations under the License.
 
 #include "esp_vfs.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 #include "soc/cpu.h"
 #include <stdarg.h>
 #include <stdbool.h>

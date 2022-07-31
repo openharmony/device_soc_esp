@@ -23,9 +23,9 @@
 #include "esp_err.h"
 #include "esp_attr.h"
 #include "sys/queue.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
+#include "esp_osal/semphr.h"
 #include "soc/soc_memory_layout.h"
 
 #include "pthread_internal.h"

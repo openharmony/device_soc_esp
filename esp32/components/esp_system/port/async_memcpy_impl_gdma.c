@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "soc/periph_defs.h"
 #include "soc/soc_memory_layout.h"
 #include "soc/soc_caps.h"

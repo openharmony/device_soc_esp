@@ -18,7 +18,7 @@
 #include "esp_intr_alloc.h"
 #include "soc/soc_caps.h"
 #include "hal/dma_types.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 
 #if SOC_CP_DMA_SUPPORTED
 #include "hal/cp_dma_ll.h"

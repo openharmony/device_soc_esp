@@ -24,10 +24,10 @@
 #include "soc/gpio_periph.h"
 #include "soc/rtc_periph.h"
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "freertos/queue.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/queue.h"
 
 
 #define REASON_YIELD            BIT(0)

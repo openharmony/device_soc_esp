@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <freertos/FreeRTOS.h>
+#include <esp_osal/esp_osal.h>
 #include "soc/clk_ctrl_os.h"
 
 #define DELAY_RTC_CLK_SWITCH 5

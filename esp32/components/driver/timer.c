@@ -16,7 +16,7 @@
 #include "esp_log.h"
 #include "esp_err.h"
 #include "esp_intr_alloc.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "driver/timer.h"
 #include "driver/periph_ctrl.h"
 #include "hal/timer_hal.h"

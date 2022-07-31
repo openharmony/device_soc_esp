@@ -22,7 +22,7 @@
 #include "osi/allocator.h"
 #include "esp_spp_api.h"
 #include "osi/list.h"
-#include "freertos/ringbuf.h"
+#include "ringbuf.h"
 #include "osi/mutex.h"
 #include "osi/alarm.h"
 #include <sys/errno.h>
@@ -31,8 +31,8 @@
 #include "esp_vfs.h"
 #include "esp_vfs_dev.h"
 #include "stack/port_api.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/event_groups.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/event_groups.h"
 
 #include "btc/btc_task.h"
 #include "stack/btu.h"

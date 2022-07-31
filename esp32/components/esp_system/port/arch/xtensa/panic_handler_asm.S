@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "freertos/xtensa_rtos.h"
+#include "esp_osal/xtensa_rtos.h"
 #include "esp_private/panic_reason.h"
 #include "soc/soc.h"
 

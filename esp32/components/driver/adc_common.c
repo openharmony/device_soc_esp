@@ -15,9 +15,9 @@
 #include <esp_types.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "freertos/timers.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/timers.h"
 #include "esp_log.h"
 #include "soc/rtc.h"
 #include "driver/rtc_io.h"

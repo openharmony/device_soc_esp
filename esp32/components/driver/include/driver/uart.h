@@ -21,11 +21,11 @@ extern "C" {
 #include "esp_err.h"
 #include "esp_intr_alloc.h"
 #include "soc/soc_caps.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-//#include "freertos/ringbuf.h"//pjw mask
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/task.h"
+#include "esp_osal/queue.h"
+//#include "ringbuf.h"//pjw mask
 #include "hal/uart_types.h"
 
 // Valid UART port number

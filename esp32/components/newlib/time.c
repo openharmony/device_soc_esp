@@ -26,8 +26,8 @@
 #include "esp_system.h"
 #include "esp_attr.h"
 #include "esp_rom_sys.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 
 #include "esp_private/system_internal.h"
 

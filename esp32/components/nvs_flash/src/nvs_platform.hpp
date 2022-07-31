@@ -28,8 +28,8 @@ public:
 
 #else // LINUX_TARGET
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
 
 namespace nvs
 {

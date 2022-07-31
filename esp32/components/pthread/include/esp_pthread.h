@@ -15,7 +15,7 @@
 #pragma once
 
 #include "esp_err.h"
-#include "freertos/FreeRTOSConfig.h"
+#include "esp_osal/osal_config.h"
 
 #ifdef __cplusplus
 extern "C" {

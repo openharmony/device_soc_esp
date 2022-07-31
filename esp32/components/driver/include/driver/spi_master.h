@@ -15,7 +15,7 @@
 #pragma once
 
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 //for spi_bus_initialization funcions. to be back-compatible
 #include "driver/spi_common.h"
 
