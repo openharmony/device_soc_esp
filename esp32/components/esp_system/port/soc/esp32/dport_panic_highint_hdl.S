@@ -16,8 +16,8 @@
 #include <xtensa/coreasm.h>
 #include <xtensa/corebits.h>
 #include <xtensa/config/system.h>
-#include "freertos/xtensa_context.h"
-#include "freertos/xtensa_rtos.h"
+#include "esp_osal/xtensa_context.h"
+#include "esp_osal/xtensa_rtos.h"
 #include "esp_private/panic_reason.h"
 #include "sdkconfig.h"
 #include "soc/soc.h"

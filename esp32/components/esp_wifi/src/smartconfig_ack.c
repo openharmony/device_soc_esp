@@ -17,8 +17,8 @@
  * it will use UDP to send 'ACK' to cellphone.
  */
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 #include "esp_netif.h"
 #include "esp_log.h"
 #include "esp_wifi.h"

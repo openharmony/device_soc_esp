@@ -17,9 +17,9 @@
 #include <math.h>
 #include <esp_types.h>
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/queue.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/queue.h"
+#include "esp_osal/semphr.h"
 
 #include "soc/lldesc.h"
 #include "driver/gpio.h"

@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "hal/clk_gate_ll.h"
 #include "esp_attr.h"
 #include "driver/periph_ctrl.h"

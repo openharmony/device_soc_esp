@@ -21,8 +21,8 @@
 #include <limits.h>
 #include <assert.h>
 #include "sdkconfig.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 #include "esp_err.h"
 #include "esp_log.h"
 #include "esp_intr_alloc.h"

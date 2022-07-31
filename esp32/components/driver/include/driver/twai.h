@@ -21,7 +21,7 @@ extern "C" {
 #include "soc/soc_caps.h"
 #if SOC_TWAI_SUPPORTED
 
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "esp_types.h"
 #include "esp_intr_alloc.h"
 #include "esp_err.h"

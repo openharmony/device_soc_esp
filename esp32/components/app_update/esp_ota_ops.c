@@ -19,8 +19,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
+#include <esp_osal/esp_osal.h>
+#include <esp_osal/task.h>
 
 #include "esp_err.h"
 #include "esp_partition.h"

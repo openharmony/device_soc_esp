@@ -19,7 +19,7 @@
 #include "esp_intr_alloc.h"
 #include "esp_log.h"
 #include "soc/periph_defs.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "hal/systimer_ll.h"
 #include "hal/systimer_types.h"
 #include "hal/systimer_hal.h"

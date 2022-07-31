@@ -16,8 +16,8 @@
 
 #include "esp_types.h"
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
 #include "soc/i2s_periph.h"
 #include "soc/rtc_periph.h"
 #include "soc/soc_caps.h"

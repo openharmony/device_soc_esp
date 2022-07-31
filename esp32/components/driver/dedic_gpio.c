@@ -28,7 +28,7 @@
 #include "hal/gpio_hal.h"
 #include "driver/periph_ctrl.h"
 #include "esp_rom_gpio.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "driver/dedic_gpio.h"
 #include "soc/dedic_gpio_periph.h"
 #if SOC_DEDIC_GPIO_ALLOW_REG_ACCESS

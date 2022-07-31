@@ -22,7 +22,7 @@
 #include "soc/soc_caps.h"
 #include "soc/gpio_periph.h"
 #include "hal/gpio_types.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 
 // |================================= WARNING ====================================================== |
 // | Including ROM header file in a PUBLIC API file will be REMOVED in the next major release (5.x). |

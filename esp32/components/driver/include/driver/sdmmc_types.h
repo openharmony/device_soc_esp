@@ -21,7 +21,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 
 /**
  * Decoded values from SD card Card Specific Data register

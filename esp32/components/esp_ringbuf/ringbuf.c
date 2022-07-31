@@ -14,10 +14,10 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "freertos/ringbuf.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
+#include "esp_osal/semphr.h"
+#include "ringbuf.h"
 
 //32-bit alignment macros
 #define rbALIGN_MASK (0x03)

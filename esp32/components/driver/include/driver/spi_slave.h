@@ -17,8 +17,8 @@
 #define _DRIVER_SPI_SLAVE_H_
 
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
 #include "driver/spi_common.h"
 
 

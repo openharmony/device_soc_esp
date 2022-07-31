@@ -15,7 +15,7 @@
 
 #ifdef MULTI_HEAP_FREERTOS
 
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 
 #include "sdkconfig.h"
 #include "esp_rom_sys.h"
@@ -78,7 +78,7 @@ inline static void multi_heap_assert(bool condition, const char *format, int lin
                       __LINE__, (intptr_t)(ADDRESS))
 
 #ifdef CONFIG_HEAP_TASK_TRACKING
-#include <freertos/task.h>
+#include <esp_osal/task.h>
 #define MULTI_HEAP_BLOCK_OWNER TaskHandle_t task;
 #define MULTI_HEAP_SET_BLOCK_OWNER(HEAD) (HEAD)->task = xTaskGetCurrentTaskHandle()
 #define MULTI_HEAP_GET_BLOCK_OWNER(HEAD) ((HEAD)->task)

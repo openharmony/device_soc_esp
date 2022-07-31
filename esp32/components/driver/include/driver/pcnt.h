@@ -17,7 +17,7 @@
 #include "esp_types.h"
 #include "esp_err.h"
 #include "esp_intr_alloc.h"
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 #include "driver/gpio.h"
 #include "hal/pcnt_types.h"
 #include "soc/pcnt_periph.h"

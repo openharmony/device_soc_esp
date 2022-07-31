@@ -11,9 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "freertos/xtensa_context.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/xtensa_context.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 
 #include "esp_debug_helpers.h"
 

@@ -13,10 +13,10 @@
 // limitations under the License.
 
 #include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "freertos/queue.h"
-#include "freertos/ringbuf.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/queue.h"
+#include "ringbuf.h"
 #include "driver/gpio.h"
 #include "driver/spi_common_internal.h"
 #include "driver/spi_slave_hd.h"

@@ -17,7 +17,7 @@
 
 #include "soc/rtc.h"
 
-#include "freertos/FreeRTOS.h"
+#include "esp_osal/esp_osal.h"
 
 #include "sdkconfig.h"
 

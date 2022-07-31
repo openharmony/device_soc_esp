@@ -27,9 +27,9 @@
 #include "soc/soc_memory_layout.h"
 #include "hal/spi_ll.h"
 #include "hal/spi_slave_hal.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/task.h"
 #include "sdkconfig.h"
 
 #include "driver/gpio.h"

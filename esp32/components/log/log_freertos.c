@@ -15,9 +15,9 @@
 #include <stdint.h>
 #include <time.h>
 #include <sys/time.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
+#include "esp_osal/semphr.h"
 #include "hal/cpu_hal.h" // for cpu_hal_get_cycle_count()
 #include "esp_log.h"
 #include "esp_log_private.h"

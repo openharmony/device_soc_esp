@@ -16,8 +16,8 @@
 
 #include <stdlib.h>
 #include <sys/cdefs.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
 #include "soc/soc_caps.h"
 #include "soc/periph_defs.h"
 #include "esp_intr_alloc.h"

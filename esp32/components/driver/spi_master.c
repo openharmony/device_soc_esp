@@ -123,8 +123,8 @@ We have two bits to control the interrupt:
 #include "driver/spi_master.h"
 
 #include "esp_log.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
+#include "esp_osal/task.h"
+#include "esp_osal/queue.h"
 #include "soc/soc_memory_layout.h"
 #include "driver/gpio.h"
 #include "hal/spi_hal.h"

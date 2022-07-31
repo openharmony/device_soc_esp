@@ -19,9 +19,9 @@
 #include <limits.h>
 #include <algorithm>
 #include <sys/lock.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "freertos/task.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/semphr.h"
+#include "esp_osal/task.h"
 
 using __cxxabiv1::__guard;
 

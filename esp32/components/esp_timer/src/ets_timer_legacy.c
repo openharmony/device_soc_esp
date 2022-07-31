@@ -24,9 +24,9 @@
 #include "esp_log.h"
 #include "esp_attr.h"
 #include "esp_intr_alloc.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
+#include "esp_osal/semphr.h"
 #include "sdkconfig.h"
 #include "esp_timer.h"
 #if CONFIG_IDF_TARGET_ESP32

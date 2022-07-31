@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <freertos/xtensa_context.h>
+#include <esp_osal/xtensa_context.h>
 
     .extern xtensa_shared_stack
     .extern xtensa_shared_stack_callback

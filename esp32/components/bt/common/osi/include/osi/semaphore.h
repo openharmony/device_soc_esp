@@ -19,10 +19,10 @@
 #ifndef __SEMAPHORE_H__
 #define __SEMAPHORE_H__
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-#include "freertos/semphr.h"
+#include "esp_osal/esp_osal.h"
+#include "esp_osal/task.h"
+#include "esp_osal/queue.h"
+#include "esp_osal/semphr.h"
 
 #define OSI_SEM_MAX_TIMEOUT 0xffffffffUL
 
