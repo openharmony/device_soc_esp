@@ -83,7 +83,7 @@ template("StaticLibrary") {
                      "//kernel/liteos_m/utils",
                      "//kernel/liteos_m/components/power",
                      "//kernel/liteos_m",
-                     "$device_path/include",
+                     "$device_path/target/include",
                      "//third_party/mbedtls/include",
                      "osal/include",
                      "osal/port/xtensa/include",
