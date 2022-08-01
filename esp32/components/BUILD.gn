@@ -35,6 +35,7 @@ module_group(module_name) {
     ":esp_system",
     ":esp_timer",
     ":esp_wifi",
+    ":esp_osal",
     ":esp_hal",
     ":esp_heap",
     ":esp_log",
@@ -3070,6 +3071,113 @@ StaticLibrary("esp_wifi") {
   ]
 }
 
+# ============================================= libosal
+StaticLibrary("esp_osal") {
+  _flags_c = [
+    "-std=gnu99",
+    "-O2",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_s = [
+    "-MMD",
+    "-MP",
+  ]
+
+  _flags_cc = []
+  _defines = [
+    "_ESP_FREERTOS_INTERNAL",
+    "ESP_PLATFORM",
+    "IDF_VER=\"v4.3.1-dirty\"",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "HAVE_CONFIG_H",
+  ]
+
+   _includes = [
+    "hal/esp32/include",
+    "hal/include",
+    "app_trace/include",
+    "app_update/include",
+    "bootloader_support/include",
+    "driver/include",
+    "driver/esp32/include",
+    "driver/esp32/include/driver",
+    "efuse/esp32/include",
+    "efuse/include",
+    "esp32/include",
+    "esp_common/include",
+    "esp_event/include",
+    "esp_hw_support",
+    "esp_hw_support/include",
+    "esp_hw_support/port/esp32/private_include",
+    "esp_netif/include",
+    "esp_ringbuf/include",
+    "esp_rom/include",
+    "esp_rom/esp32",
+    "esp_rom/include/esp32",
+    "esp_system/include",
+    "esp_timer/include",
+    "esp_wifi/include",
+    "esp_wifi/esp32/include",
+    "heap/include",
+    "log/include",
+    "lwip/include/apps",
+    "lwip/include/apps/sntp",
+    "lwip/lwip/src/include",
+    "lwip/port/esp32/include",
+    "lwip/port/esp32/include/arch",
+    ".",
+    "newlib/platform_include",
+    "nvs_flash/include",
+    "pthread/include",
+    "soc/include",
+    "soc/esp32",
+    "soc/esp32/include",
+    "spi_flash/include",
+    "tcpip_adapter/include",
+    "xtensa/include",
+    "xtensa/esp32/include",
+    "esp32",
+    "osal/include/esp_osal",
+    "osal/port/xtensa/include/esp_osal",
+  ]
+  
+  _ldflags = []
+  sources = [
+    "osal/liteos_m.c",
+    "osal/queue.c",
+    "osal/list.c",
+    "osal/event_groups.c",
+    "osal/tasks.c",
+    "osal/port/port_common.c",
+    "osal/port/xtensa/xtensa_init.c",
+    "osal/port/xtensa/port.c",
+    "osal/port/xtensa/xtensa_context.S",
+    "osal/port/xtensa/xtensa_vectors.S",
+    "osal/port/xtensa/xtensa_vector_defaults.S",
+    "osal/port/xtensa/portasm.S",
+  ]
+}
 # ============================================= libhal
 StaticLibrary("esp_hal") {
   _flags_c = [
