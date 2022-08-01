@@ -134,14 +134,6 @@ static inline esp_err_t esp_netif_lwip_ipc_call(esp_netif_api_fn fn, esp_netif_t
             .data = data,
             .api_fn = fn
     };
-    if (g_lwip_task != xTaskGetCurrentTaskHandle()) {
-        ESP_LOGD(TAG, "check: remote, if=%p fn=%p\n", netif, fn);
-        sys_arch_sem_wait(&api_lock_sem, 0);
-        tcpip_send_msg_wait_sem((tcpip_callback_fn)esp_netif_api_cb, &msg, &api_sync_sem);
-        sys_sem_signal(&api_lock_sem);
-        return msg.ret;
-    }
-    ESP_LOGD(TAG, "check: local, if=%p fn=%p\n", netif, fn);
     return fn(&msg);
 }
 
@@ -708,8 +700,6 @@ static esp_err_t esp_netif_start_api(esp_netif_api_msg_t *msg)
     if (esp_netif->flags&ESP_NETIF_FLAG_GARP) {
 #if ESP_GRATUITOUS_ARP
         netif_set_garp_flag(esp_netif->lwip_netif);
-#else
-        ESP_LOGW(TAG,"CONFIG_LWIP_ESP_GRATUITOUS_ARP not enabled, but esp-netif configured with ESP_NETIF_FLAG_GARP");
 #endif
     }
     struct netif *p_netif = esp_netif->lwip_netif;
@@ -1043,7 +1033,6 @@ static esp_err_t esp_netif_dhcpc_stop_api(esp_netif_api_msg_t *msg)
 }
 
 esp_err_t esp_netif_dhcpc_stop(esp_netif_t *esp_netif) _RUN_IN_LWIP_TASK_IF_SUPPORTED(esp_netif_dhcpc_stop_api, esp_netif, NULL)
-
 static esp_err_t esp_netif_dhcpc_start_api(esp_netif_api_msg_t *msg)
 {
     esp_netif_t *esp_netif = msg->esp_netif;
@@ -1085,7 +1074,7 @@ static esp_err_t esp_netif_dhcpc_start_api(esp_netif_api_msg_t *msg)
             return ESP_ERR_ESP_NETIF_DHCPC_START_FAILED;
         }
 
-        dhcp_set_cb(p_netif, esp_netif_dhcpc_cb);
+        // dhcp_set_cb(p_netif, esp_netif_dhcpc_cb);
 
         esp_netif->dhcpc_status = ESP_NETIF_DHCP_STARTED;
         return ESP_OK;
