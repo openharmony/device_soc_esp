@@ -1,51 +1,27 @@
 /*
- * Copyright (c) 2001-2003 Swedish Institute of Computer Science.
- * All rights reserved.
+ * Copyright (c) 2022 Hunan OpenValley Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. The name of the author may not be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
- * OF SUCH DAMAGE.
- *
- * This file is part of the lwIP TCP/IP stack.
- *
- * Author: Simon Goldschmidt
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
+#include <stdint.h>
+#include <stdbool.h>
 #include <stdlib.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <sys/fcntl.h>
-#include <sys/ioctl.h>
 #include <sys/types.h>
-#include <sys/select.h>
-#include "esp_task.h"
-#include "esp_system.h"
 #include "sdkconfig.h"
 #include "netif/dhcp_state.h"
-
-/* Enable all Espressif-only options */
 
 /*
    -----------------------------------------------
@@ -521,14 +497,14 @@
  * The stack size value itself is platform-dependent, but is passed to
  * sys_thread_new() when the thread is created.
  */
-#define TCPIP_THREAD_STACKSIZE          ESP_TASK_TCPIP_STACK
+#define TCPIP_THREAD_STACKSIZE          (4096)
 
 /**
  * TCPIP_THREAD_PRIO: The priority assigned to the main tcpip thread.
  * The priority value itself is platform-dependent, but is passed to
  * sys_thread_new() when the thread is created.
  */
-#define TCPIP_THREAD_PRIO               ESP_TASK_TCPIP_PRIO
+#define TCPIP_THREAD_PRIO               (25-7)
 
 /**
  * TCPIP_MBOX_SIZE: The mailbox size for the tcpip thread messages
@@ -777,7 +753,6 @@
 #warning LWIP_HOOK_FILENAME is used for IDF default hooks. Please use ESP_IDF_LWIP_HOOK_FILENAME to insert additional hook
 #endif
 #define LWIP_HOOK_FILENAME              "lwip_default_hooks.h"
-#define LWIP_HOOK_IP4_ROUTE_SRC         ip4_route_src_hook
 
 /*
    ---------------------------------------
@@ -945,12 +920,12 @@
 /* Enable all Espressif-only options */
 
 #define ESP_LWIP                        1
-#define ESP_LWIP_ARP                    1
+#define ESP_LWIP_ARP                    0
 #define ESP_PER_SOC_TCP_WND             0
-#define ESP_THREAD_SAFE                 1
+#define ESP_THREAD_SAFE                 0
 #define ESP_THREAD_SAFE_DEBUG           LWIP_DBG_OFF
-#define ESP_DHCP                        1
-#define ESP_DNS                         1
+#define ESP_DHCP                        0
+#define ESP_DNS                         0
 #define ESP_PERF                        0
 #define ESP_RANDOM_TCP_PORT             1
 #define ESP_IP4_ATON                    1
@@ -959,27 +934,17 @@
 #define ESP_STATS_MEM                   CONFIG_LWIP_STATS
 #define ESP_STATS_DROP                  CONFIG_LWIP_STATS
 #define ESP_STATS_TCP                   0
-#ifdef CONFIG_LWIP_DHCPS
-#define ESP_DHCPS                       1
-#define ESP_DHCPS_TIMER                 1
-#else
-#define ESP_DHCPS                       0
-#define ESP_DHCPS_TIMER                 0
-#endif /* CONFIG_LWIP_DHCPS */
+
 #define ESP_LWIP_LOGI(...)              ESP_LOGI("lwip", __VA_ARGS__)
 #define ESP_PING                        1
 #define ESP_HAS_SELECT                  1
 #define ESP_AUTO_RECV                   1
-#define ESP_GRATUITOUS_ARP              CONFIG_LWIP_ESP_GRATUITOUS_ARP
-#define ESP_IP4_ROUTE                   1
-#define ESP_AUTO_IP                     1
 #define ESP_PBUF                        1
-// #define ESP_PPP                         1
-#define ESP_IPV6                        LWIP_IPV6
+#define ESP_IPV6                        0
 #define ESP_SOCKET                      1
 #define ESP_LWIP_SELECT                 1
 #define ESP_LWIP_LOCK                   1
-#define ESP_THREAD_PROTECTION           1
+#define ESP_THREAD_PROTECTION           0
 
 #ifdef CONFIG_LWIP_IPV6_AUTOCONFIG
 #define ESP_IPV6_AUTOCONFIG             0 /* CONFIG_LWIP_IPV6_AUTOCONFIG */
@@ -1103,5 +1068,11 @@ LWIP_FORWARD_DECLARE_C_CXX uint32_t sntp_get_sync_interval(void);
  */
 #undef MQTT_CONNECT_TIMOUT
 #define MQTT_CONNECT_TIMOUT 100
+
+#if LWIP_NETCONN_SEM_PER_THREAD
+#define LWIP_NETCONN_THREAD_SEM_GET() sys_thread_sem_get()
+#define LWIP_NETCONN_THREAD_SEM_ALLOC() sys_thread_sem_init()
+#define LWIP_NETCONN_THREAD_SEM_FREE() sys_thread_sem_deinit()
+#endif
 
 #endif /* __LWIPOPTS_H__ */
