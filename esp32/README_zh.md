@@ -52,6 +52,7 @@ ESP32平台组件按目录划分，存放在`components`目录下，如下为[Ni
 | `esp_system` | 系统核心接口(启动、休眠、异常处理等) |
 | `esp_timer` | 软件定时器支持 |
 | `esp_wifi` | WIFI支持 |
+| `esp_lwip` | esp32平台LWIP适配 |
 | `osal` | 操作系统抽象层 |
 | `hal` | 硬件抽象层 |
 | `heap` | esp32堆管理 |

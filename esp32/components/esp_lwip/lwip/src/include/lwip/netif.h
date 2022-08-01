@@ -415,6 +415,11 @@ struct netif {
   u8_t napt;
 #endif
 #endif /* ESP_LWIP */
+  void (*drv_send)(struct netif *netif, struct pbuf *p);
+  u8_t (*drv_set_hwaddr)(struct netif *netif, u8_t *addr, u8_t len);
+  void (*drv_config)(struct netif *netif, u32_t config_flags, u8_t setBit);
+  char full_name[16];
+  u16_t link_layer_type;
 };
 #if LWIP_CHECKSUM_CTRL_PER_NETIF
 #define NETIF_SET_CHECKSUM_CTRL(netif, chksumflags) do { \
@@ -698,4 +703,6 @@ void netif_invoke_ext_callback(struct netif* netif, netif_nsc_reason_t reason, c
 }
 #endif
 
+err_t  tcpip_input(struct pbuf *p, struct netif *inp);
+void driverif_input(struct netif *netif, struct pbuf *p);
 #endif /* LWIP_HDR_NETIF_H */
