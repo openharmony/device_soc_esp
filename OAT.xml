@@ -132,7 +132,7 @@
         </policylist>
         <filefilterlist>
             <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
-                <filteritem type="filepath" name="esp32/components/bt/sdkconfig.rename" desc=""/>
+                <filteritem type="filepath" name="EULA" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/libc_stubs.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/lwip/lwip/FILES" desc=""/>
                 <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/chap_ms.c" desc=""/>
@@ -249,7 +249,6 @@
                 <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/PPPD_FOLLOWUP" desc=""/>
                 <filteritem type="filepath" name="esp32/components/lwip/lwip/src/netif/ppp/multilink.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/time.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/vfs/sdkconfig.rename" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_clk.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/crc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_common/src/esp_err_to_name.c" desc=""/>
@@ -294,7 +293,6 @@
             <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
                 <filteritem type="filepath" name="EULA" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/uECC.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/bt/sdkconfig.rename" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/libc_stubs.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/lwip/lwip/FILES" desc=""/>
                 <filteritem type="filepath" name="esp32/components/lwip/lwip/src/core/dns.c" desc=""/>
@@ -409,7 +407,6 @@
                 <filteritem type="filepath" name="esp32/components/lwip/port/esp32/include/arch/cc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/lwip/port/esp32/include/sys/socket.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/time.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/vfs/sdkconfig.rename" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/curve-specific.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_clk.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/crc.h" desc=""/>
