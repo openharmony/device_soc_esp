@@ -1063,7 +1063,7 @@ static esp_err_t esp_netif_dhcpc_start_api(esp_netif_api_msg_t *msg)
 
     esp_netif_reset_ip_info(esp_netif);
 
-#if LWIP_DNS
+#if LWIP_DNS && ESP_DNS
     dns_clear_servers(true);
 #endif
 
@@ -1411,7 +1411,7 @@ static esp_err_t esp_netif_set_ip_info_api(esp_netif_api_msg_t *msg)
         if (esp_netif->dhcpc_status != ESP_NETIF_DHCP_STOPPED) {
             return ESP_ERR_ESP_NETIF_DHCP_NOT_STOPPED;
         }
-#if LWIP_DNS /* don't build if not configured for use in lwipopts.h */
+#if LWIP_DNS && ESP_DNS /* don't build if not configured for use in lwipopts.h */
         dns_clear_servers(true);
 #endif
     }

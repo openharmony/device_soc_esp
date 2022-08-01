@@ -84,10 +84,11 @@ template("StaticLibrary") {
                      "//kernel/liteos_m/components/power",
                      "//kernel/liteos_m",
                      "$device_path/target/include",
+                     "lwip/port/esp32/include/lwip",
                      "//third_party/mbedtls/include",
                      "osal/include",
                      "osal/port/xtensa/include",
-                   ] + invoker._includes
+                   ] + invoker._includes + ["//third_party/lwip/src/include"]
     output_prefix_override = false
     no_default_deps = true
   }
@@ -3062,10 +3063,7 @@ StaticLibrary("esp_wifi") {
     "esp_wifi/esp32/esp_adapter.c",
     "esp_wifi/src/coexist.c",
     "esp_wifi/src/lib_printf.c",
-    "esp_wifi/src/mesh_event.c",
     "esp_wifi/src/phy_init.c",
-    "esp_wifi/src/smartconfig.c",
-    "esp_wifi/src/smartconfig_ack.c",
     "esp_wifi/src/wifi_default.c",
     "esp_wifi/src/wifi_init.c",
     "esp_wifi/src/wifi_netif.c",

@@ -22,6 +22,7 @@
 #include "sdkconfig.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
+#include "los_task.h"
 
 #ifdef CONFIG_VFS_SUPPORT_IO
 #error This file should only be built when CONFIG_VFS_SUPPORT_IO=n
