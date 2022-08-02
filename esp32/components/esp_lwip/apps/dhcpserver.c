@@ -22,8 +22,8 @@
 #include "lwip/ip_addr.h"
 #include "esp_netif.h"
 
-#include "dhcpserver/dhcpserver.h"
-#include "dhcpserver/dhcpserver_options.h"
+#include "apps/dhcpserver.h"
+#include "apps/dhcpserver_options.h"
 
 #if ESP_DHCP
 
