@@ -15,7 +15,7 @@ import("//kernel/liteos_m/liteos.gni")
 
 LWIP_PORTING_DIR = get_path_info(".", "abspath")
 
-LWIP_PORTING_INCLUDE_DIRS = [ 
+LWIP_PORTING_INCLUDE_DIRS = [
   "${LWIP_PORTING_DIR}/port/include",
   "${LWIP_PORTING_DIR}/port/include/lwip",
 ]

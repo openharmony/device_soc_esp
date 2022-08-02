@@ -28,8 +28,6 @@
 #include <sys/errno.h>
 #include <sys/lock.h>
 #include <sys/fcntl.h>
-#include "esp_vfs.h"
-#include "esp_vfs_dev.h"
 #include "stack/port_api.h"
 #include "esp_osal/esp_osal.h"
 #include "esp_osal/event_groups.h"

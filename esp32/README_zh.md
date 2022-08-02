@@ -42,7 +42,7 @@ ESP32平台组件按目录划分，存放在`components`目录下，如下为[Ni
 | `driver` | 芯片驱动 |
 | `efuse` | 一次性可编程存储 |
 | `esp32` | esp32平台接口 |
-| `esp_adc_cal` | ADC校准 |
+| `esp_adc_cal` | RF ADC校准 |
 | `esp_common` | esp公共文件 |
 | `esp_event` | 事件增强组件 |
 | `esp_hw_support` | 硬件接口支持 |
@@ -64,7 +64,6 @@ ESP32平台组件按目录划分，存放在`components`目录下，如下为[Ni
 | `soc` | 外设资源配置组件 |
 | `spi_flash` | SPI Flash操作 |
 | `tcpip_adapter` | 网络协议栈适配 |
-| `vfs` | 虚拟文件系统 |
 | `xtensa` | 芯片架构层接口 |
 
 
