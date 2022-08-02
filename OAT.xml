@@ -134,8 +134,6 @@
             <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
                 <filteritem type="filepath" name="EULA" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/libc_stubs.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/FILES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/chap_ms.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/soc/lldesc.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/Makefile.files" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_types.h" desc=""/>
@@ -145,19 +143,10 @@
                 <filteritem type="filepath" name="esp32/components/driver/include/driver/sdmmc_defs.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/lldesc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/osal/port/xtensa/include/esp_osal/xtensa_api.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/UPGRADING" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/ccp.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/demand.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/task.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/controller/lib_esp32/README.rst" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/md5_hash.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/FILES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/chap-md5.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/pppcrypt.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/FILES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/eap.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/upap.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/newlib.lf" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp_coredump.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/soc/soc_include_legacy_warn.c" desc=""/>
@@ -165,29 +154,17 @@
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/miniz.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_system/port/include/intr.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/osal/port/xtensa/include/esp_osal/xtensa_context.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/chap-new.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/pppdebug.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/ecp.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/utils.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp_encr_nvs.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/flash_mock.cpp" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader_support/include/esp_flash_data_types.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/include/esp_blufi.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/queue.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esptool_py/Kconfig.projbuild" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/chap_ms.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/eui64.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/vj.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/flash_mock_util.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/stack/smp/include/aes.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/rtc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_common/Kconfig.spiram.common" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_wifi/lib/tools/ci/build_app.sh" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/flasher_stub/run_tests_with_stub.sh" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/eap.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/fsm.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/polarssl/arc4.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/pthread.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/lock.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_coredump.csv" desc=""/>
@@ -197,109 +174,59 @@
                 <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/nimble_host/esp_blufi.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/list.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/secure_boot.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/apps/FILES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/ecp.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/ipcp.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/polarssl/des.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_encr_nvs.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/log/include/esp_log.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/sha.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/eui64.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/upap.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/ipv6cp.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/polarssl/md4.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/Makefile.files" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/osi.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/spi_flash.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_event/include/esp_event_loop.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/etharp.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/fsm.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/vj.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/lcp.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/polarssl/md5.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/app_update/esp_ota_eps.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/vfs/README.rst" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/common/osi/list.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/btc/core/btc_sec.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/stack/smp/aes.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/aes.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/tbconsole.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_wifi/lib/fix_printf.sh" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/ipcp.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/polarssl/arc4.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/magic.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/polarssl/sha1.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/nvs_flash/include/nvs_handle.hpp" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/esp_timer/include/esp_timer.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/lock.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/vfs/include/esp_vfs.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/bigint.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/tjpgd.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/ipv6cp.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/polarssl/des.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/mppe.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/include/sys/lock.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/vfs/component.mk" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/hci/hci_audio.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/efuse/esp32/esp_efuse_table.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/cache.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/uart.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/lcp.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/polarssl/md4.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/PPPD_FOLLOWUP" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/multilink.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/time.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_clk.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/crc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_common/src/esp_err_to_name.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/setup.py" desc=""/>
                 <filteritem type="filepath" name="esp32/components/osal/include/esp_osal/stdint.readme" desc=""/>
                 <filteritem type="filepath" name="esp32/components/osal/include/esp_osal/croutine.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/apps/http/makefsdata/makefsdata" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/magic.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/polarssl/md5.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/auth.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/ppp.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/COPYING.NEWLIB" desc=""/>
-                <filteritem type="filepath" name="esp32/components/spi_flash/mock/mock_config.yaml" desc=""/>
                 <filteritem type="filepath" name="esp32/components/app_update/Kconfig.projbuild" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_himem.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/efuse.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/CHANGELOG" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/mppe.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/polarssl/sha1.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/ccp.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/newlib/Makefile.old" desc=""/>
-                <filteritem type="filepath" name="esp32/components/bt/component.mk" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/ets_sys.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/ld/esp32_fragments.lf" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/ppp.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/chap-md5.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/pppcrypt.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.cpp" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/FreeRTOS.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/sdkconfig/sdkconfig.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/linker.lf" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_spiram.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/gpio.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/FEATURES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/ppp_impl.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/chap-new.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/esp32-spiram-rom-functions-c.lf" desc=""/>
                 <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.hpp" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_host.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/projdefs.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/time.h" desc=""/>
             </filefilter>
             <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
                 <filteritem type="filepath" name="EULA" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/uECC.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/libc_stubs.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/FILES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/core/dns.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/ppp_opts.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/pppol2tp.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/soc/lldesc.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/spi_flash/sim/Makefile.files" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_types.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/semphr.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/sdmmc/include/sdmmc_cmd.h" desc=""/>
@@ -307,15 +234,10 @@
                 <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/bluedroid_host/esp_blufi.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/lldesc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/osal/port/xtensa/include/esp_osal/xtensa_api.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/UPGRADING" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/pppapi.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/pppos.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/task.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/md5_hash.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/heap/heap_tlsf.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/FILES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/FILES" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/newlib.lf" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_singleapp_coredump.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/soc/soc_include_legacy_warn.c" desc=""/>
@@ -329,24 +251,13 @@
                 <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/include/esp_blufi.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/queue.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_rom/include/esp32/rom/md5_hash.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esptool_py/Kconfig.projbuild" desc=""/>
                 <filteritem type="filepath" name="esp32/components/heap/heap_tlsf_block_functions.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/apps/netbiosns.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/apps/tftp_opts.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/flash_mock_util.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/uECC_verify_antifault.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/stack/smp/include/aes.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/rtc.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_common/Kconfig.spiram.common" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_wifi/lib/tools/ci/build_app.sh" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/flasher_stub/run_tests_with_stub.sh" desc=""/>
                 <filteritem type="filepath" name="esp32/components/heap/heap_tlsf_config.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/compat/posix/netdb.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/apps/netbiosns_opts.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/apps/tftp_server.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/prot/dns.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/pppol2tp.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/pthread.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/lock.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_coredump.csv" desc=""/>
@@ -357,25 +268,17 @@
                 <filteritem type="filepath" name="esp32/components/bt/common/btc/profile/esp/blufi/nimble_host/esp_blufi.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/list.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/secure_boot.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/compat/posix/arpa/inet.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/netdb.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/apps/FILES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/ppp/pppos.h" desc=""/>
+                <filteritem type="filepath" name="esp32/components/esp_lwip/port/include/arch/cc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/partition_table/partitions_two_ota_encr_nvs.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/log/include/esp_log.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_arm.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/sha.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/apps/netbiosns/netbiosns.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/Makefile.files" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_arm_mult_square.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/common/osi/include/osi/osi.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/spi_flash.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_event/include/esp_event_loop.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/api/netdb.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/netifapi.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/etharp.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/app_update/esp_ota_eps.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/vfs/vfs_semihost.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_arm_mult_square_umaal.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/common/osi/list.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/btc/core/btc_sec.c" desc=""/>
@@ -383,8 +286,6 @@
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/aes.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/tbconsole.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_wifi/lib/fix_printf.sh" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/api/netifapi.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/apps/tftp/tftp_server.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/nvs_flash/include/nvs_handle.hpp" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/esp_timer/include/esp_timer.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/lock.c" desc=""/>
@@ -392,42 +293,26 @@
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_avr.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/bigint.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/tjpgd.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/compat/posix/sys/socket.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/lwip/dns.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/port/esp32/include/netdb.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/newlib/include/sys/lock.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/vfs/component.mk" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/asm_avr_mult_square.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bt/host/bluedroid/hci/hci_audio.c" desc=""/>
                 <filteritem type="filepath" name="esp32/components/efuse/esp32/esp_efuse_table.csv" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/cache.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/uart.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/apps/ping/ping.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/PPPD_FOLLOWUP" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/port/include/arch/cc.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/port/esp32/include/sys/socket.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/platform_include/sys/time.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/curve-specific.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_clk.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/crc.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp_common/src/esp_err_to_name.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esptool_py/esptool/setup.py" desc=""/>
                 <filteritem type="filepath" name="esp32/components/osal/include/esp_osal/stdint.readme" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/apps/http/makefsdata/makefsdata" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/port/esp32/include/arch/perf.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/COPYING.NEWLIB" desc=""/>
                 <filteritem type="filepath" name="esp32/components/app_update/Kconfig.projbuild" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/platform-specific.inc" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_himem.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/efuse.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/compat/stdc/errno.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/netif/ppp/pppapi.c" desc=""/>
-                <filteritem type="filepath" name="esp32/components/newlib/Makefile.old" desc=""/>
                 <filteritem type="filepath" name="esp32/components/bootloader/subproject/components/micro-ecc/micro-ecc/types.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/bt/component.mk" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/ets_sys.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/ld/esp32_fragments.lf" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/apps/http/makefsdata/tinydir.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.cpp" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/freertos/include/freertos/FreeRTOS.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/sdkconfig/sdkconfig.h" desc=""/>
@@ -435,8 +320,6 @@
                 <filteritem type="filepath" name="esp32/components/bt/linker.lf" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/esp_spiram.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/esp32/include/rom/gpio.h" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/FEATURES" desc=""/>
-                <filteritem type="filepath" name="esp32/components/esp_lwip/lwip/src/include/netif/slipif.h" desc=""/>
                 <filteritem type="filepath" name="esp32/components/newlib/esp32-spiram-rom-functions-c.lf" desc=""/>
                 <filteritem type="filepath" name="esp32/components/nvs_flash/src/nvs_partition_lookup.hpp" desc=""/>
                 <filteritem type="filepath" name="esp32/components/spi_flash/sim/stubs/driver/include/driver/sdmmc_host.h" desc=""/>
