@@ -16,7 +16,7 @@
 #define _TCPIP_ADAPTER_TYPES_H_
 
 #include "lwip/ip_addr.h"
-#include "dhcpserver/dhcpserver.h"
+#include "apps/dhcpserver.h"
 #include "esp_netif_sta_list.h"
 
 #ifdef __cplusplus

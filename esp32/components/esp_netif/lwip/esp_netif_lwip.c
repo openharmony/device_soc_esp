@@ -40,8 +40,8 @@
 
 #include "esp_netif_lwip_ppp.h"
 #include "esp_netif_lwip_slip.h"
-#include "dhcpserver/dhcpserver.h"
-#include "dhcpserver/dhcpserver_options.h"
+#include "apps/dhcpserver.h"
+#include "apps/dhcpserver_options.h"
 
 #include "esp_event.h"
 #include "esp_log.h"

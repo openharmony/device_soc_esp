@@ -85,18 +85,15 @@ template("StaticLibrary") {
                      "//kernel/liteos_m/components/power",
                      "//kernel/liteos_m",
                      "$device_path/target/include",
-                     "lwip/port/esp32/include/lwip",
                      "//third_party/mbedtls/include",
                      "osal/include",
                      "osal/port/xtensa/include",
                    ] + invoker._includes
     include_dirs += [
-        "//device/board/openvalley/niobeu4/liteos_m/third_party_adapter/lwip/include",
-        "//device/board/openvalley/niobeu4/liteos_m/third_party_adapter/lwip/include/lwip",
-        "esp_lwip/include/apps",
-        "esp_lwip/lwip/src/include",
-        "esp_lwip/port/esp32/include",
-        "esp_lwip/port/esp32/include/arch",
+        "${device_path}/third_party_adapter/lwip-2.1/include",
+        "${device_path}/third_party_adapter/lwip-2.1/include/lwip",
+        "esp_lwip/port/include",
+        "esp_lwip/port/include/arch",
         "//third_party/lwip/src/include"
     ]
     output_prefix_override = false

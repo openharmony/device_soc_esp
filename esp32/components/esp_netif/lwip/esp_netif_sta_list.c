@@ -15,7 +15,7 @@
 #include <string.h>
 #include "esp_netif.h"
 #include "esp_netif_sta_list.h"
-#include "dhcpserver/dhcpserver.h"
+#include "apps/dhcpserver.h"
 #include "esp_log.h"
 
 #if CONFIG_ESP_NETIF_TCPIP_LWIP
