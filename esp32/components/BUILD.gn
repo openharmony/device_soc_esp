@@ -79,19 +79,19 @@ template("StaticLibrary") {
       arflags = []
     }
     include_dirs = [
-                     "//kernel/liteos_m/kernel/include",
-                     "//kernel/liteos_m/arch/include",
-                     "//kernel/liteos_m/utils",
-                     "//kernel/liteos_m/components/power",
-                     "//kernel/liteos_m",
-                     "$device_path/target/include",
-                     "//third_party/mbedtls/include",
-                     "osal/include",
-                     "osal/port/xtensa/include",
-                   ] + invoker._includes
+        "//kernel/liteos_m/kernel/include",
+        "//kernel/liteos_m/arch/include",
+        "//kernel/liteos_m/utils",
+        "//kernel/liteos_m/components/power",
+        "//kernel/liteos_m",
+        "${board_adapter_dir}/target/include",
+        "//third_party/mbedtls/include",
+        "osal/include",
+        "osal/port/xtensa/include",
+    ] + invoker._includes
     include_dirs += [
-        "${device_path}/third_party_adapter/lwip-2.1/include",
-        "${device_path}/third_party_adapter/lwip-2.1/include/lwip",
+        "${board_adapter_dir}/third_party_adapter/lwip-2.1/include",
+        "${board_adapter_dir}/third_party_adapter/lwip-2.1/include/lwip",
         "esp_lwip/port/include",
         "esp_lwip/port/include/arch",
         "//third_party/lwip/src/include"
