@@ -3471,7 +3471,7 @@ StaticLibrary("esp_oh_driver_hal") {
     "//utils/native/lite/include",
     "//device/board/openvalley/components/tlinksdk/interfaces/kits",
     "//third_party/bounds_checking_function/include",
-    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//foundation/systemabilitymgr/samgr_lite/interfaces/kits/samgr",
     "//third_party/cmsis/CMSIS/RTOS2/Include",
   ]
 
