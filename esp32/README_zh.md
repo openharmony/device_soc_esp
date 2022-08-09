@@ -72,13 +72,13 @@ ESP32平台组件按目录划分，存放在`components`目录下，如下为[Ni
 
 本目录下涉及到7个静态库文件，均属于乐鑫官方对外公开提供的SDK库文件，具体用途如下:
 
-|           二进制文件            |       文件功能用途        |
-| :-----------------------------: | :-----------------------: |
-| `components/libs/libbtdm_app.a` |     蓝牙协议栈库文件      |
-|   `components/libs/libcore.a`   |      wifi协议内核库       |
-| `components/libs/libnet80211.a` |      wifi协议库文件       |
-|   `components/libs/libphy.a`    |     射频物理层库文件      |
-|    `components/libs/libpp.a`    |      wifi协议内核库       |
-|   `components/libs/librtc.a`    |  系统时钟、低功耗库文件   |
-|  `components/libs/libxt_hal.a`  | xtensa架构cpu hal层库文件 |
+|           二进制文件            |       文件功能用途        | License授权 |
+| :-----------------------------: | :-----------------------: |:-----------------------: |
+| `components/libs/libbtdm_app.a` |     蓝牙协议栈库文件      |Apache License 2.0|
+|   `components/libs/libcore.a`   |      wifi协议内核库       |Apache License 2.0|
+| `components/libs/libnet80211.a` |      wifi协议库文件       | Apache License 2.0 |
+|   `components/libs/libphy.a`    |     射频物理层库文件      | Apache License 2.0 |
+|    `components/libs/libpp.a`    |      wifi协议内核库       | Apache License 2.0 |
+|   `components/libs/librtc.a`    |  系统时钟、低功耗库文件   |Apache License 2.0|
+|  `components/libs/libxt_hal.a`  | xtensa架构cpu hal层库文件 |Apache License 2.0|
 
