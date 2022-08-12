@@ -80,5 +80,5 @@ ESP32平台组件按目录划分，存放在`components`目录下，如下为[Ni
 |   `components/libs/libphy.a`    |     射频物理层库文件      | Apache License 2.0 |
 |    `components/libs/libpp.a`    |      wifi协议内核库       | Apache License 2.0 |
 |   `components/libs/librtc.a`    |  系统时钟、低功耗库文件   |Apache License 2.0|
-|  `components/libs/libxt_hal.a`  | xtensa架构cpu hal层库文件 |Apache License 2.0|
+|  `components/libs/libxt_hal.a`  | xtensa架构cpu hal层库文件 |MIT License|
 
