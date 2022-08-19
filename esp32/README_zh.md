@@ -74,11 +74,11 @@ ESP32平台组件按目录划分，存放在`components`目录下，如下为[Ni
 
 |           二进制文件            |       文件功能用途        | License授权 |
 | :-----------------------------: | :-----------------------: |:-----------------------: |
-| `components/libs/libbtdm_app.a` |     蓝牙协议栈库文件      |Apache License 2.0|
-|   `components/libs/libcore.a`   |      wifi协议内核库       |Apache License 2.0|
-| `components/libs/libnet80211.a` |      wifi协议库文件       | Apache License 2.0 |
-|   `components/libs/libphy.a`    |     射频物理层库文件      | Apache License 2.0 |
-|    `components/libs/libpp.a`    |      wifi协议内核库       | Apache License 2.0 |
-|   `components/libs/librtc.a`    |  系统时钟、低功耗库文件   |Apache License 2.0|
-|  `components/libs/libxt_hal.a`  | xtensa架构cpu hal层库文件 |MIT License|
+| `components/libs/libbtdm_app.a` |     蓝牙协议栈库文件      |[EULA](../EULA)|
+|   `components/libs/libcore.a`   |      wifi协议内核库       |[EULA](../EULA)|
+| `components/libs/libnet80211.a` |      wifi协议库文件       |[EULA](../EULA)|
+|   `components/libs/libphy.a`    |     射频物理层库文件      |[EULA](../EULA)|
+|    `components/libs/libpp.a`    |      wifi协议内核库       |[EULA](../EULA)|
+|   `components/libs/librtc.a`    |  系统时钟、低功耗库文件   |[EULA](../EULA)|
+|  `components/libs/libxt_hal.a`  | xtensa架构cpu hal层库文件 |[EULA](../EULA)|
 
