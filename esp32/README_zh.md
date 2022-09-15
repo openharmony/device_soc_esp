@@ -30,7 +30,7 @@ esp32目录结构如下所示：
 
 ## 组件目录说明
 
-ESP32平台组件按目录划分，存放在`components`目录下，如下为[NiobeU4开发板](https://gitee.com/openharmony-sig/device_board_openvalley/blob/master/niobeu4/README_zh.md)适配使用到的组件及功能用途说明：
+ESP32平台组件按目录划分，存放在`components`目录下，如下为[NiobeU4开发板](https://gitee.com/openharmony/device_board_openvalley/blob/master/niobeu4/README_zh.md)适配使用到的组件及功能用途说明：
 
 | 组件目录名  | 组件功能用途 |
 | :-----------: | :----------------------------------------------------------: |
