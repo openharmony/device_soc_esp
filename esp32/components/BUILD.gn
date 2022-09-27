@@ -17,34 +17,34 @@ module_name = "components"
 module_group(module_name) {
   modules = []
   deps = [
-    ":esp_bootloader",
+    ":esp_adc_cal",
     ":esp_app_update",
+    ":esp_bootloader",
     ":esp_bootloader_support",
     ":esp_bt",
+    ":esp_common",
     ":esp_cxx",
     ":esp_driver",
     ":esp_efuse",
     ":esp_esp32",
-    ":esp_adc_cal",
-    ":esp_common",
     ":esp_event",
-    ":esp_hw_support",
-    ":esp_netif",
-    ":esp_ringbuf",
-    ":esp_rom",
-    ":esp_system",
-    ":esp_timer",
-    ":esp_wifi",
-    ":esp_osal",
     ":esp_hal",
     ":esp_heap",
+    ":esp_hw_support",
     ":esp_log",
+    ":esp_netif",
     ":esp_newlib",
     ":esp_nvs_flash",
+    ":esp_osal",
     ":esp_pthread",
+    ":esp_ringbuf",
+    ":esp_rom",
     ":esp_soc",
     ":esp_spi_flash",
+    ":esp_system",
     ":esp_tcpip_adapter",
+    ":esp_timer",
+    ":esp_wifi",
     ":esp_xtensa",
     ":partition_table",
   ]
@@ -79,22 +79,22 @@ template("StaticLibrary") {
       arflags = []
     }
     include_dirs = [
-        "//kernel/liteos_m/kernel/include",
-        "//kernel/liteos_m/arch/include",
-        "//kernel/liteos_m/utils",
-        "//kernel/liteos_m/components/power",
-        "//kernel/liteos_m",
-        "${board_adapter_dir}/target/include",
-        "//third_party/mbedtls/include",
-        "osal/include",
-        "osal/port/xtensa/include",
-    ] + invoker._includes
+                     "//kernel/liteos_m/kernel/include",
+                     "//kernel/liteos_m/arch/include",
+                     "//kernel/liteos_m/utils",
+                     "//kernel/liteos_m/components/power",
+                     "//kernel/liteos_m",
+                     "${board_adapter_dir}/target/include",
+                     "//third_party/mbedtls/include",
+                     "osal/include",
+                     "osal/port/xtensa/include",
+                   ] + invoker._includes
     include_dirs += [
-        "${board_adapter_dir}/third_party_adapter/lwip-2.1/include",
-        "${board_adapter_dir}/third_party_adapter/lwip-2.1/include/lwip",
-        "esp_lwip/port/include",
-        "esp_lwip/port/include/arch",
-        "//third_party/lwip/src/include"
+      "${board_adapter_dir}/third_party_adapter/lwip-2.1/include",
+      "${board_adapter_dir}/third_party_adapter/lwip-2.1/include/lwip",
+      "esp_lwip/port/include",
+      "esp_lwip/port/include/arch",
+      "//third_party/lwip/src/include",
     ]
     output_prefix_override = false
     no_default_deps = true
@@ -3034,7 +3034,7 @@ StaticLibrary("esp_osal") {
     "HAVE_CONFIG_H",
   ]
 
-   _includes = [
+  _includes = [
     "hal/esp32/include",
     "hal/include",
     "app_trace/include",
@@ -3077,23 +3077,24 @@ StaticLibrary("esp_osal") {
     "osal/include/esp_osal",
     "osal/port/xtensa/include/esp_osal",
   ]
-  
+
   _ldflags = []
   sources = [
-    "osal/liteos_m.c",
-    "osal/queue.c",
-    "osal/list.c",
     "osal/event_groups.c",
-    "osal/tasks.c",
+    "osal/list.c",
+    "osal/liteos_m.c",
     "osal/port/port_common.c",
-    "osal/port/xtensa/xtensa_init.c",
     "osal/port/xtensa/port.c",
-    "osal/port/xtensa/xtensa_context.S",
-    "osal/port/xtensa/xtensa_vectors.S",
-    "osal/port/xtensa/xtensa_vector_defaults.S",
     "osal/port/xtensa/portasm.S",
+    "osal/port/xtensa/xtensa_context.S",
+    "osal/port/xtensa/xtensa_init.c",
+    "osal/port/xtensa/xtensa_vector_defaults.S",
+    "osal/port/xtensa/xtensa_vectors.S",
+    "osal/queue.c",
+    "osal/tasks.c",
   ]
 }
+
 # ============================================= libhal
 StaticLibrary("esp_hal") {
   _flags_c = [
@@ -3468,7 +3469,7 @@ StaticLibrary("esp_oh_driver_hal") {
     "tcpip_adapter/include",
     "xtensa/include",
     "xtensa/esp32/include",
-    "//utils/native/lite/include",
+    "//commonlibrary/utils_lite/include",
     "//device/board/openvalley/components/tlinksdk/interfaces/kits",
     "//third_party/bounds_checking_function/include",
     "//foundation/systemabilitymgr/samgr_lite/interfaces/kits/samgr",
