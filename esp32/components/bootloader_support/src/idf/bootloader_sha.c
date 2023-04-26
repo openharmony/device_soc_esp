@@ -18,6 +18,7 @@
 #include <assert.h>
 #include <sys/param.h>
 #include <mbedtls/sha256.h>
+#include <mbedtls/compat-2.x.h>
 
 bootloader_sha256_handle_t bootloader_sha256_start(void)
 {
